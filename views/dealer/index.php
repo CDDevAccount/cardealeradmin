@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchDealer */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tbl Dealers';
+$this->title = 'Dealers';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tbl-dealer-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tbl Dealer', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create New Dealer', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,16 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'pid',
+        //    'id',
+        //    'pid',
             'name',
-            'branchname',
+           // 'branchname',
             'address1',
             //'address2',
             //'address3',
-            //'city',
-            //'postcode',
-            //'phone',
+           // 'city',
+            'postcode',
+            'phone',
             //'mobile',
             //'contact_name',
             //'contact_title',

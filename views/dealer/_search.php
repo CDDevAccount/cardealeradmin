@@ -15,13 +15,13 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?= // $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'pid') ?>
+    <?= // $form->field($model, 'pid') ?>
 
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'branchname') ?>
+    <?= // $form->field($model, 'branchname') ?>
 
     <?= $form->field($model, 'address1') ?>
 
@@ -31,9 +31,9 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'city') ?>
 
-    <?php // echo $form->field($model, 'postcode') ?>
+    <?php  echo $form->field($model, 'postcode') ?>
 
-    <?php // echo $form->field($model, 'phone') ?>
+    <?php  echo $form->field($model, 'phone') ?>
 
     <?php // echo $form->field($model, 'mobile') ?>
 
