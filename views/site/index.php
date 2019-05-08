@@ -9,7 +9,7 @@ $this->title = 'Car Dealer Media - Admin Area';
     <div class="jumbotron">
         <h1>Car Dealer Media</h1>
 
-        <p class="lead">Maintenance areas for Car Dealer</p>
+        <p class="lead">Maintenance area for Car Dealer</p>
 
     </div>
 
