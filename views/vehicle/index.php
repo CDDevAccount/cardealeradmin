@@ -1,13 +1,18 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use app\models\TblVehicles;
+use app\models\TblDealer;
+//use yii\grid\GridView;
+use kartik\grid\GridView;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchVehicles */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tbl Vehicles';
+$this->title = 'Vehicles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tbl-vehicles-index">
@@ -16,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tbl Vehicles', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Vehicle', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -24,15 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+       //     'id',
+            ['attribute'=>'did', 
+                'width'=>'250px',
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(TblDealer::find()->orderBy('name')->asArray()->all(), 'id', 'name'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                    ],
+                'filterInputOptions'=>['placeholder'=>'Any ...'],
+                'format'=>'raw'
+            ],
 
-            'id',
-            'did',
             'make',
             'model',
             'colour',
             //'fuel_type',
-            //'year',
-            //'price',
+            'year',
+            'price',
             //'dealer_description:ntext',
             //'post_code',
             //'orig_url:url',
