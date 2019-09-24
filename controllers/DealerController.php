@@ -36,12 +36,17 @@ class DealerController extends Controller
     public function actionIndex()
     {
         $searchModel = new SearchDealer();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	$dataProvider->pagination = ['pageSize' => 100];
 
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+	}else{
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+    	]);
+	}
     }
 
     /**
@@ -90,9 +95,12 @@ class DealerController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+	}else{
         return $this->render('update', [
             'model' => $model,
-        ]);
+        ]);}
     }
 
     /**
@@ -104,8 +112,12 @@ class DealerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
 
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+	}else{
+        $this->findModel($id)->delete();
+		}
         return $this->redirect(['index']);
     }
 

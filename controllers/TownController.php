@@ -38,10 +38,14 @@ class TownController extends Controller
         $searchModel = new SearchTowns();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+	}else{
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+    ]);
+	}
     }
 
     /**

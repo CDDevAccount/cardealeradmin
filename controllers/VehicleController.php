@@ -38,10 +38,14 @@ class VehicleController extends Controller
         $searchModel = new SearchVehicles();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+	}else{
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+        ]);}
     }
 
     /**

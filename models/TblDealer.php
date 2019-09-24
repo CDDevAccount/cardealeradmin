@@ -46,11 +46,12 @@ class TblDealer extends \yii\db\ActiveRecord
         return [
             [['pid'], 'integer'],
             [['updated_at', 'created_at'], 'safe'],
-            [['name', 'branchname', 'address1', 'address2', 'address3', 'city', 'dealer_web', 'dealer_email'], 'string', 'max' => 255],
-            [['postcode'], 'string', 'max' => 10],
+            [['name', 'branchname', 'address1', 'address2', 'address3', 'city', 'dealer_web', 'dealer_email','website_provider','dms_provider','dealer_privacy'], 'string', 'max' => 255],
+            [['postcode','longitude','latitude'], 'string', 'max' => 10],
             [['phone', 'mobile'], 'string', 'max' => 50],
             [['contact_name'], 'string', 'max' => 100],
             [['contact_title'], 'string', 'max' => 25],
+            [['fb_onboard'], 'integer' ],
             [['outcode'], 'string', 'max' => 5],
             [['name', 'postcode'], 'unique', 'targetAttribute' => ['name', 'postcode']],
         ];
@@ -78,6 +79,10 @@ class TblDealer extends \yii\db\ActiveRecord
             'dealer_web' => 'Dealer Web',
             'dealer_email' => 'Dealer Email',
             'outcode' => 'Outcode',
+            'longitude'=>'Longitude',
+            'latitude'=>'latitude',
+            'website_provider'=>'Website Made By',
+            'dms_provider'=>'Dealer Management System Used',
             'updated_at' => 'Updated At',
             'created_at' => 'Created At',
         ];

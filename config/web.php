@@ -49,14 +49,16 @@ $config = [
             ],
         ],
         'db' => $db,
-/*        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
+	    'rules' => [
+		    '/' => 'site/index',
+        '<controller:\w+/?>' => '<controller>/index',
+        '<controller:\w+>/<id:\d+>' => '<controller>/view',
+        '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
             ],
-    ],
- */
+   	 ],
         
     ],
     'params' => $params,
@@ -68,7 +70,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['127.0.0.1','213.123.143.206', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';

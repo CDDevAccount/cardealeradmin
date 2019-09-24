@@ -39,10 +39,20 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'dealer_web')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'dealer_email')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'website_provider')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'dms_provider')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'dealer_privacy')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'fb_onboard')->radio(array('label'=>''))->label('Send to Facebook ?');//(['maxlength' => true]) ?>
     <?= $form->field($model, 'outcode')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+	<?= $form->field($model, 'longitude')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'latitude')->textInput(['maxlength' => true]) ?>
+
+	<?= $form->field($model, 'updated_at')->textInput() ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 
