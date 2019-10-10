@@ -51,7 +51,7 @@ class TblDealer extends \yii\db\ActiveRecord
             [['phone', 'mobile'], 'string', 'max' => 50],
             [['contact_name'], 'string', 'max' => 100],
             [['contact_title'], 'string', 'max' => 25],
-            [['fb_onboard'], 'integer' ],
+            [['fb_onboard','cardealer'], 'integer' ],
             [['outcode'], 'string', 'max' => 5],
             [['name', 'postcode'], 'unique', 'targetAttribute' => ['name', 'postcode']],
         ];
@@ -81,6 +81,8 @@ class TblDealer extends \yii\db\ActiveRecord
             'outcode' => 'Outcode',
             'longitude'=>'Longitude',
             'latitude'=>'latitude',
+            'fb_onboard'=>'Feed Sent to Facebook',
+            'cardealer'=>'Subscribed to Car Dealer',
             'website_provider'=>'Website Made By',
             'dms_provider'=>'Dealer Management System Used',
             'updated_at' => 'Updated At',
@@ -91,7 +93,7 @@ class TblDealer extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTblVehicles()
+    public function getVehicles()
     {
         return $this->hasMany(TblVehicles::className(), ['did' => 'id']);
     }

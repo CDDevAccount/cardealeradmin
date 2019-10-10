@@ -42,6 +42,7 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'contact_title') ?>
 
     <?php  echo $form->field($model, 'dealer_web') ?>
+    <?php  echo $form->field($model, 'has_stock') ?>
 
     <?php  //echo $form->field($model, 'dealer_email') ?>
 

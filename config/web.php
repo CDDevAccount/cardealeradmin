@@ -18,6 +18,17 @@ $config = [
         ]
     ],
     'components' => [
+    'assetManager' => [
+        'bundles' => [
+            'dosamigos\google\maps\MapAsset' => [
+                'options' => [
+                    'key' => 'AIzaSyBGDS9Iy9MaslqMfcA051ADc7O7-4Z97JU',
+                    'language' => 'en',
+                    'version' => '3.1.18'
+                ]
+            ]
+        ]
+    ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'nlzH0GLVZn65jNFhZsD1mmvut11Qa6VO',
