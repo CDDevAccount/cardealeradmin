@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchDealer */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -17,13 +16,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create New Dealer', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Dealer Facebook Map', ['facebooked'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('Dealer Map', ['map'], ['class' => 'btn btn-danger']) ?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+	'filterModel' => $searchModel,
+	'layout' => "{summary}\n{pager}\n{items}\n{pager}",
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
 
         //    'id',
         //    'pid',
@@ -34,17 +36,24 @@ $this->params['breadcrumbs'][] = $this->title;
             //'address3',
            // 'city',
             'postcode',
-            'phone',
+    //        'phone',
             //'mobile',
             //'contact_name',
             //'contact_title',
-            //'dealer_web',
+//	    'dealer_web',
+//	    'website_provider',
+//	    'dms_provider',
+//	    'has_stock',
+//	    'longitude',
+//	    'latitude',
             //'dealer_email:email',
-            //'outcode',
+            'outcode',
+            'vehicle_count',
+            'fb_onboard',
+            'cardealer',
             //'updated_at',
             //'created_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>
