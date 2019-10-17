@@ -48,6 +48,7 @@ class TblDealer extends \yii\db\ActiveRecord
             [['updated_at', 'created_at'], 'safe'],
             [['name', 'branchname', 'address1', 'address2', 'address3', 'city', 'dealer_web', 'dealer_email','website_provider','dms_provider','dealer_privacy'], 'string', 'max' => 255],
             [['postcode','longitude','latitude'], 'string', 'max' => 10],
+            [['comment'],'string'],
             [['phone', 'mobile'], 'string', 'max' => 50],
             [['contact_name'], 'string', 'max' => 100],
             [['contact_title'], 'string', 'max' => 25],
