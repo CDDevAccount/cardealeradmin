@@ -118,10 +118,42 @@ use yii\grid\GridView;
 	<div class='col-sm-6'>
 		<div class='panel  panel-default'>
 			<div class="panel-heading" style="text-align:center">
-				<h3 class="panel-title">Vehicles</h3>
+				<h3 class="panel-title">Todays Facebook Leads</h3>
 			</div>
 	  		<div class="panel-body">
-	    		Panel content
+	    		    <?= GridView::widget([
+					'tableOptions' => [
+					    'class' => 'table table-striped',
+					],
+					'options' => [
+					    'class' => 'table-responsive',
+					],
+			        'dataProvider' => $todayleadsProvdier,
+				        'columns' => [
+							[
+							    'label' => 'Leads',
+							    'attribute' =>'Leads',
+							    'format'=>['integer']
+							],				        	
+
+				            'Dealer',
+							[
+							    'label' => 'Value',
+							    'attribute' =>'Total',
+							   // 'contentOptions' => ['class' => 'col-lg-1'],
+							    'format'=>['decimal',0]
+							],
+
+							[
+							    'label' => 'Avg',
+							    'attribute' =>'AverageValue',
+							  //  'contentOptions' => ['class' => 'col-lg-1'],
+							    'format'=>['decimal',0]
+							]
+
+				        ],
+				       ]); 
+			        ?>
   			</div>
   			<div class="panel-footer">
   				Footnote

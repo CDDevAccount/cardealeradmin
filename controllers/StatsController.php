@@ -15,6 +15,8 @@ use app\models\UvwUnitsMPV;
 use app\models\UvwUnitsPickups;
 use app\models\UvwUnitsSaloon;
 use app\models\UvwUnitsSUV;
+use app\models\UvwTodaysFBLeads;
+
 
 use app\models\SearchLiveDealer;
 use app\models\SearchDealerTotals;
@@ -46,8 +48,15 @@ class StatsController extends \yii\web\Controller
     	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
     	$dataProvider->pagination = ['pageSize' => 20];
 
-		$fbleadProvider= new ActiveDataProvider([
+    	$leadsProvider= new ActiveDataProvider([
 		    'query' => UvwCurrentStockFBLeads::find(),
+		    'pagination' => [
+		        'pageSize' => 20,
+		    ],
+    	]);
+
+		$todayleadProvider= new ActiveDataProvider([
+		    'query' => UvwTodaysFBLeads::find(),
 		    'pagination' => [
 		        'pageSize' => 20,
 		    ],
@@ -59,7 +68,8 @@ class StatsController extends \yii\web\Controller
             return $this->render('index', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
-                'fbleadProvider'=>$fbleadProvider,
+                'fbleadProvider'=>$leadsProvider,
+                'todayleadsProvdier'=>$todayleadProvider,
         	]);
     	}
         return $this->render('index');
