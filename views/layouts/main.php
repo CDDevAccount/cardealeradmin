@@ -29,7 +29,8 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+      //  'brandLabel' => Yii::$app->name,
+        'brandLabel' => '<img src="/cardealer-logosm.png" class="pull-left"/>',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',

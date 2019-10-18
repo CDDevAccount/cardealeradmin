@@ -13,7 +13,7 @@ use yii\grid\GridView;
 
 <div class='row'>
 	<div class='col-sm-6'>
-		<div class='panel panel-default'>
+		<div class='panel panel-primary'>
 			<div class="panel-heading" style="text-align:center">
 				<h3 class="panel-title" display: inline-block>Dealer's Stock</h3>
 			</div>
@@ -71,7 +71,7 @@ use yii\grid\GridView;
 		</div>
 	</div>
 	<div class='col-sm-6'>
-		<div class='panel  panel-default'>
+		<div class='panel  panel-primary'>
 			<div class="panel-heading" style="text-align:center">
 				<h3 class="panel-title">Dealer's Leads</h3>
 			</div>
@@ -116,7 +116,7 @@ use yii\grid\GridView;
 		</div>
 	</div>
 	<div class='col-sm-6'>
-		<div class='panel  panel-default'>
+		<div class='panel  panel-primary'>
 			<div class="panel-heading" style="text-align:center">
 				<h3 class="panel-title">Todays Facebook Leads</h3>
 			</div>
