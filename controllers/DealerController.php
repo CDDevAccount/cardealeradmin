@@ -3,13 +3,15 @@
 namespace app\controllers;
 
 use Yii;
+
 use app\models\TblDealer;
 use app\models\SearchLiveDealer;
 use app\models\SearchDealerTotals;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+//use Illuminate\Support\Facades\DB;
+use yii\db\Query;
 
 
 use dosamigos\google\maps\LatLng;
@@ -180,6 +182,51 @@ class DealerController extends Controller
 	       return $this->render('facebook',['dealers'=>$dealers,'map'=>$map]); 
 	    }
     }
+
+
+    public function actionThisday()
+    {
+            if (Yii::$app->user->isGuest){
+                return $this->goHome();
+            }else{
+            $coord = new LatLng(['lat' => 52.658092, 'lng' => -1.120892]);
+            $map = new Map([
+                'center' => $coord,
+                'zoom' => 7,
+                'width'=>'100%',
+                'height'=>'800'
+            ]);
+
+            $dealers=\DB::table('tbl_fb_leads')
+                ->join('tbl_vehicles', 'tbl_fb_leads.vehicle_id', '=', 'tbl_vehicles.id')
+                ->join('tbl_dealer', 'tbl_vehicles.did', '=', 'tbl_dealer.id')
+                ->select('tbl_dealer_name','tbl_dealer.longitude','tbl_dealer.latitude')
+                ->where('tbl_fb_leads.ceeated_time','=', curdate())
+                ->get();
+
+            foreach($dealers as $dealer){
+                $vehicles=$dealer->vehicles;
+                $vc=0;
+                foreach($vehicles as $vehicle){
+                    if ($vehicle->has_images){
+                        $vc++;
+                    }       
+                }
+                $coord=new LatLng(['lat'=>$dealer->latitude,'lng'=>$dealer->longitude]);        
+                $marker=new Marker([
+                    'position'=>$coord,
+                    'title'=>$dealer->name]);
+                $marker->attachInfoWindow(
+                        new InfoWindow([
+                            'content' => '<p>'.$dealer->name.'</p><p>'.$vc.' Vehicles</p>'
+                        ])
+                    );  
+                $map->addOverlay($marker);
+            }
+            return $this->render('facebook',['dealers'=>$dealers,'map'=>$map]);
+        }
+    }
+
 
     public function actionFacebooked()
     {

@@ -22,6 +22,7 @@ use Yii;
  * @property string $contact_title Contact Title (Sir/Dr etc)
  * @property string $dealer_web
  * @property string $dealer_email
+ * @property string $email_good
  * @property string $outcode PostCode Outcode section
  * @property string $updated_at
  * @property string $created_at
@@ -52,7 +53,7 @@ class TblDealer extends \yii\db\ActiveRecord
             [['phone', 'mobile'], 'string', 'max' => 50],
             [['contact_name'], 'string', 'max' => 100],
             [['contact_title'], 'string', 'max' => 25],
-            [['fb_onboard','cardealer'], 'integer' ],
+            [['fb_onboard','cardealer','email_good'], 'integer' ],
             [['outcode'], 'string', 'max' => 5],
             [['name', 'postcode'], 'unique', 'targetAttribute' => ['name', 'postcode']],
         ];

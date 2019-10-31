@@ -47,6 +47,7 @@ use dosamigos\tinymce\TinyMce;
             <?= $form->field($model, 'contact_title')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'dealer_web')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'dealer_email')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'email_good')->checkbox(array('label'=>''))->label('Email Address Checked ?');//(['maxlength' => true]) ?>
             <?= $form->field($model, 'dealer_privacy')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>    <?= $form->field($model, 'website_provider')->textInput(['maxlength' => true]) ?>
