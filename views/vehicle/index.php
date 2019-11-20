@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'engine_size',
             //'transmission',
             //'doors',
-            //'registration',
+            'registration',
             //'phone',
             //'images:ntext',
             //'default_image',

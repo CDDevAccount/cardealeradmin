@@ -51,7 +51,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'doors') ?>
 
-    <?php // echo $form->field($model, 'registration') ?>
+    <?php  echo $form->field($model, 'registration') ?>
 
     <?php // echo $form->field($model, 'phone') ?>
 
