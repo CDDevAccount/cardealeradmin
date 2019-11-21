@@ -64,17 +64,20 @@ class VehicleController extends Controller
         if (is_array($images)){
             foreach ($images as $image){
                 //var_dump($image->imagename);
-                $pubimages[$i] = $baseurl.'/'.$reg.'/'.$image->imagename;
+                $imageurls[$i] = $baseurl.'/'.$reg.'/'.$image->imagename;
                 $i++;
                 
             }
 
             
+        }else{
+            $pubimages=false;
         }
      //   var_dump($pubimages);
         return $this->render('view', [
-            'model' => $this->findModel($id),
-            'images' =>$pubimages,
+            'model' => $model, //$this->findModel($id),
+            'images' =>$imageurls,
+            'imageaction'=>$images,
         ]);
     }
 

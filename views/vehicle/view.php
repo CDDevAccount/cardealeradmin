@@ -12,7 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 
 foreach($images as $image){
-    $pics[]=['content'=> '<img src='.$image.'  />','caption'=>$model->registration];
+    $pathinfo = pathinfo($image);
+    echo $pathinfo['filename'].'.'.$pathinfo['extension'];
+
+    $pics[]=['content'=> '<img src='.$image.'  />','caption'=>$model->registration.'-'.$pathinfo['filename'].'.'.$pathinfo['extension']];
 }
 //var_dump($pics);
 ?>
