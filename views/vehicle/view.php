@@ -13,8 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 foreach($images as $image){
     $pathinfo = pathinfo($image);
-    echo $pathinfo['filename'].'.'.$pathinfo['extension'];
-
     $pics[]=['content'=> '<img src='.$image.'  />','caption'=>$model->registration.'-'.$pathinfo['filename'].'.'.$pathinfo['extension']];
 }
 //var_dump($pics);
