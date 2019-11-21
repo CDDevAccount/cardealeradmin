@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\TblVehicles;
+use app\models\LinkCarImages;
 use app\models\SearchVehicles;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,8 +53,28 @@ class VehicleController extends Controller
      */
     public function actionView($id)
     {
+        $i=0;
+        $pubimages= array();
+        $baseurl='https://media.cardealer.co.uk';
+       
+        $model=$this->findModel($id);
+        $reg=$model->registration;
+        //var_dump($model->registration);
+        $images=LinkCarImages::find()->where(['registration'=>$model->registration])->all();
+        if (is_array($images)){
+            foreach ($images as $image){
+                //var_dump($image->imagename);
+                $pubimages[$i] = $baseurl.'/'.$reg.'/'.$image->imagename;
+                $i++;
+                
+            }
+
+            
+        }
+     //   var_dump($pubimages);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'images' =>$pubimages,
         ]);
     }
 

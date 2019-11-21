@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use yii\bootstrap\Carousel;
 /* @var $this yii\web\View */
 /* @var $model app\models\TblVehicles */
 
@@ -10,6 +10,11 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Tbl Vehicles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+foreach($images as $image){
+    $pics[]=['content'=> '<img src='.$image.'  />','caption'=>$model->registration];
+}
+//var_dump($pics);
 ?>
 <div class="tbl-vehicles-view">
 
@@ -66,6 +71,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'amended_at',
         ],
-    ]) ?>
+    ]); 
+    echo Carousel::widget([
+        'items' => $pics,
+    ]);
+?>
+
 
 </div>
