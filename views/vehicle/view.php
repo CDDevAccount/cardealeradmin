@@ -13,9 +13,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 foreach($images as $image){
     $pathinfo = pathinfo($image);
-    $pics[]=['content'=> '<img src='.$image.'  />','caption'=>$model->registration.'-'.$pathinfo['filename'].'.'.$pathinfo['extension']];
+    $pics[]=['content'=> '<img src='.$image.'  />','caption'=>$model->registration.'- <EM><strong><mark>'.$pathinfo['filename'].'</mark></strong></em>.'.$pathinfo['extension'].Html::a('Update', ['/vehicle/carimages', 'reg' => $model->registration], ['class' => 'btn btn-primary'])];
 }
 //var_dump($pics);
+//].'<a href="/vehicle/carimages?reg= "'.$model->id.' target="_blank">Delete</a>'];
 ?>
 <div class="tbl-vehicles-view">
 

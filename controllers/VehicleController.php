@@ -9,7 +9,7 @@ use app\models\SearchVehicles;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\data\ActiveDataProvider;
 /**
  * VehicleController implements the CRUD actions for TblVehicles model.
  */
@@ -54,7 +54,7 @@ class VehicleController extends Controller
     public function actionView($id)
     {
         $i=0;
-        $pubimages= array();
+        $imageurls= array();
         $baseurl='https://media.cardealer.co.uk';
        
         $model=$this->findModel($id);
@@ -66,19 +66,42 @@ class VehicleController extends Controller
                 //var_dump($image->imagename);
                 $imageurls[$i] = $baseurl.'/'.$reg.'/'.$image->imagename;
                 $i++;
-                
             }
-
             
         }else{
-            $pubimages=false;
+            $imageurls=false;
         }
      //   var_dump($pubimages);
         return $this->render('view', [
             'model' => $model, //$this->findModel($id),
             'images' =>$imageurls,
-            'imageaction'=>$images,
+            'imagemodels'=>$images,
         ]);
+    }
+
+
+    public function actionCarimages($reg='')
+    {
+        if ($reg>''){
+            $query=LinkCarImages::find()->where(['registration'=>$reg]);
+            $provider = new ActiveDataProvider([
+                'query' => $query,
+                'pagination' => [
+                'pageSize' => 10,
+                ],
+                'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC,
+                    'imagename' => SORT_ASC, 
+                ]
+                ],
+            ]);
+
+            return $this->render('carimages', [
+            //    'searchModel' => $searchModel,
+                'dataProvider' => $provider,
+            ]);            
+        }
     }
 
     /**
