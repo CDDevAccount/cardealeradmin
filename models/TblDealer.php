@@ -53,7 +53,7 @@ class TblDealer extends \yii\db\ActiveRecord
             [['phone', 'mobile'], 'string', 'max' => 50],
             [['contact_name'], 'string', 'max' => 100],
             [['contact_title'], 'string', 'max' => 25],
-            [['fb_onboard','cardealer','email_good'], 'integer' ],
+            [['fb_onboard','cardealer','email_good','dealer_fb_page_id'], 'integer' ],
             [['outcode'], 'string', 'max' => 5],
             [['name', 'postcode'], 'unique', 'targetAttribute' => ['name', 'postcode']],
         ];
@@ -85,6 +85,7 @@ class TblDealer extends \yii\db\ActiveRecord
             'latitude'=>'latitude',
             'fb_onboard'=>'Feed Sent to Facebook',
             'cardealer'=>'Subscribed to Car Dealer',
+            'dealer_fb_page_id'=>'Dealer Facebook Page ID',
             'website_provider'=>'Website Made By',
             'dms_provider'=>'Dealer Management System Used',
             'updated_at' => 'Updated At',

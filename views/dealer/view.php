@@ -50,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'outcode',
             'fb_onboard:boolean',
             'cardealer:boolean',
+            'dealer_fb_page_id',
             'updated_at',
             'created_at',
         ],

@@ -65,6 +65,7 @@ use dosamigos\tinymce\TinyMce;
             <?= $form->field($model, 'fb_onboard')->checkbox(array('label'=>''))->label('Send to Facebook ?');//(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'cardealer')->checkbox(array('label'=>''))->label('Subscribed to Car Dealer ?');//(['maxlength' => true]) ?>
+            <?= $form->field($model, 'dealer_fb_page_id')->textInput(['maxlength' => true]) ;//(['maxlength' => true]) ?>
         </div>
     </div>
 
