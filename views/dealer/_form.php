@@ -41,15 +41,17 @@ use dosamigos\tinymce\TinyMce;
  <div class='col-md-4'>
     <div class='panel panel-default'>
         <div class='panel-heading'>
-        Address Details</div>
+        Contact Details</div>
         <div class="panel-body">
             <?= $form->field($model, 'contact_name')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'contact_title')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'dealer_web')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'dealer_email')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'email_good')->checkbox(array('label'=>''))->label('Email Address Checked ?');//(['maxlength' => true]) ?>
+            <?= $form->field($model, 'email_good')->checkbox(array('label'=>''))->label('Email Verified?');//(['maxlength' => true]) ?>
             <?= $form->field($model, 'dealer_privacy')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'dealer_phone_good')->checkbox(array('label'=>''))->label('Phone verified?'); ?>
             <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>    <?= $form->field($model, 'website_provider')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'dms_provider')->textInput(['maxlength' => true]) ?>
@@ -64,8 +66,10 @@ use dosamigos\tinymce\TinyMce;
         <div class="panel-body">
             <?= $form->field($model, 'fb_onboard')->checkbox(array('label'=>''))->label('Send to Facebook ?');//(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'cardealer')->checkbox(array('label'=>''))->label('Subscribed to Car Dealer ?');//(['maxlength' => true]) ?>
-            <?= $form->field($model, 'dealer_fb_page_id')->textInput(['maxlength' => true]) ;//(['maxlength' => true]) ?>
+            <?= $form->field($model, 'cardealer')->checkbox(array('label'=>''))->label('Subscribed to Car Dealer ?'); ?>
+
+            <?= $form->field($model, 'cd_phone_number')->textInput(['maxlength' => true]) ; ?>
+            <?= $form->field($model, 'dealer_fb_page_id')->textInput(['maxlength' => true]) ; ?>
         </div>
     </div>
 
