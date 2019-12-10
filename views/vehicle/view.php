@@ -31,6 +31,7 @@ foreach($images as $image){
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('View Dealer', ['/dealer/view', 'id' => $model->did], ['class' => 'btn btn-warning','target'=>'_blank']) ?>
     </p>
 
     <?= DetailView::widget([

@@ -102,6 +102,6 @@ class TblDealer extends \yii\db\ActiveRecord
      */
     public function getVehicles()
     {
-        return $this->hasMany(TblVehicles::className(), ['did' => 'id']);
+        return $this->hasMany(TblVehicles::className(), ['did' => 'id'])->orderBy(['make' => SORT_ASC,'model_family'=>SORT_ASC]);
     }
 }

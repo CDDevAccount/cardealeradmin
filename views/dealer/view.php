@@ -5,9 +5,10 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TblDealer */
+//var_dump($model->vehicles);
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Tbl Dealers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Dealers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -62,4 +63,20 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
+<div class ='row'>
+    
+    <?php
+    sort($model->vehicles);
+    foreach ($model->vehicles as $car) { ?>
+        <div class='col-lg-2 col-sm-4 '>
+            <div class="panel panel-default">
+            <?php
+       echo " $car->make $car->model_family £$car->price <a href='https://www.cardealer.co.uk/used-cars/for-sale/$car->slug'  target='_blank'>$car->registration</a><br>";
+            ?>
+            </div>
+        </div>
+    <?php
+    }
+    ?>
 </div>
