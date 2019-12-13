@@ -24,6 +24,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 
 
 use dosamigos\google\maps\LatLng;
@@ -42,6 +43,7 @@ use dosamigos\google\maps\layers\BicyclingLayer;
 
 class StatsController extends \yii\web\Controller
 {
+    
     public function actionIndex()
     {
         $searchModel = new SearchDealerTotals();
@@ -75,6 +77,47 @@ class StatsController extends \yii\web\Controller
         return $this->render('index');
     }
 
+    
+    public function actionStats($body='Coupe',$month=1,$from=5000,$to=15000)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+    	}else{
+
+		    	$param1=$month;
+		    	$param2=$body;
+		    	$param3=$from;
+		    	$param4=$to;
+		 
+		    	$result = \Yii::$app->db->createCommand("CALL usp_SalesStatsGenerator(:paramName1, :paramName2,:paramName3,:paramName4)") 
+		                      ->bindValue(':paramName1' , $param1 )
+		                      ->bindValue(':paramName2', $param2)
+		                      ->bindValue(':paramName3', $param3)
+		                      ->bindValue(':paramName4', $param4)
+		                      ->queryAll();
+
+				$provider = new ArrayDataProvider([
+				    'allModels' => $result,
+				    'sort' => [
+				        'attributes' => ['make', 'units'],
+				    ],
+				    'pagination' => [
+				        'pageSize' => 20,
+				    ],
+				]);
+		// get the posts in the current page
+				$posts = $provider->getModels();
+				return $this->render('stats',[
+					'dataProvider'=>$provider,
+					'body'=>$body,
+					'months'=>$month,
+					'from'=>$from,
+					'to'=>$to
+				]);
+		}
+    }
+
+
     public function actionType($model_type=false)
     {
 
@@ -98,6 +141,10 @@ class StatsController extends \yii\web\Controller
     		}
     	}
     }
+
+
+
+
     private function getProvider($model_type)
     {
     	$dp=false;
