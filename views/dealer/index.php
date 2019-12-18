@@ -21,8 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-	'filterModel' => $searchModel,
-	'layout' => "{summary}\n{pager}\n{items}\n{pager}",
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+    	'filterModel' => $searchModel,
+    	'layout' => "{summary}\n{pager}\n{items}\n{pager}",
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['class' => 'yii\grid\ActionColumn'],
@@ -37,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
            // 'city',
             'postcode',
     //        'phone',
-            //'mobile',
+            'dd_customer:boolean',
             //'contact_name',
             //'contact_title',
 //	    'dealer_web',
@@ -48,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //	    'latitude',
             //'dealer_email:email',
             //'outcode',
+            'comment:html',
             'email_good:boolean',
             'vehicle_count',
             'fb_onboard:boolean',

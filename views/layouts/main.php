@@ -40,9 +40,9 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
+         //   ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Stock/Leads Stats', 'url' => ['/stats/index']],
-            ['label' => 'Model Stats 5-15', 'url' => ['/stats/type?model_type=Coupe']],
+            ['label' => 'Model Stats', 'url' => ['/stats/stats']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
@@ -54,7 +54,19 @@ AppAsset::register($this);
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
-                . '</li>'
+                . '</li>
+                    <li style="list-style: none; display: inline;float:right">
+
+                            <form class="navbar-form" role="search" action="/find/our/">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="Search" name="SearchTerm" id="SearchTerm" type="text">
+
+                                    <div class="input-group-btn"></div>
+                                </div>
+                            </form>
+
+                    </li>
+                '
             )
         ],
     ]);

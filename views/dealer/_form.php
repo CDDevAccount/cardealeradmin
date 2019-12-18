@@ -55,6 +55,7 @@ use dosamigos\tinymce\TinyMce;
             <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>    <?= $form->field($model, 'website_provider')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'dms_provider')->textInput(['maxlength' => true]) ?>
+
         </div>
     </div>
 
@@ -62,11 +63,12 @@ use dosamigos\tinymce\TinyMce;
 <div class='col-md-4'>
     <div class='panel panel-default'>
         <div class='panel-heading'>
-        Facebook Feed Options</div>
+        Account & FB Options</div>
         <div class="panel-body">
             <?= $form->field($model, 'fb_onboard')->checkbox(array('label'=>''))->label('Send to Facebook ?');//(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'cardealer')->checkbox(array('label'=>''))->label('Subscribed to Car Dealer ?'); ?>
+            <?= $form->field($model, 'cardealer')->checkbox(array('label'=>''))->label('Active on Car Dealer ?'); ?>
+            <?= $form->field($model, 'dd_customer')->checkbox(array('label'=>''))->label('Active Car Dealer A/C (DD)?'); ?>
 
             <?= $form->field($model, 'cd_phone_number')->textInput(['maxlength' => true]) ; ?>
             <?= $form->field($model, 'dealer_fb_page_id')->textInput(['maxlength' => true]) ; ?>

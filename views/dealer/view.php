@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'outcode',
             'fb_onboard:boolean',
             'cardealer:boolean',
+            'dd_customer:boolean',
             'dealer_fb_page_id',
             'cc_email',
             'cd_phone_number',
