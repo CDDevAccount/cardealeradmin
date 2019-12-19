@@ -35,13 +35,17 @@ class TownController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new SearchTowns();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->isGuest){
+            return $this->goHome();
+        }else{
+            $searchModel = new SearchTowns();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**

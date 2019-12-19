@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class ='row'>
     
     <?php
-    sort($model->vehicles);
+ //   sort($model->vehicles);
     foreach ($model->vehicles as $car) { ?>
         <div class='col-lg-2 col-sm-4 '>
             <div class="panel panel-default">

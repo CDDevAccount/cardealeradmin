@@ -116,7 +116,47 @@ class StatsController extends \yii\web\Controller
 				]);
 		}
     }
+/*
 
+
+*/
+
+    public function actionMap($days=1)
+    {
+    	//die(var_dump('here'));
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+    	}else{
+				$coord = new LatLng(['lat' => 52.658092, 'lng' => -1.120892]);
+	    		$map = new Map([
+	    		    'center' => $coord,
+	    		    'zoom' => 7,
+	    		    'width'=>'100%',
+	    		    'height'=>'800'
+	    		]);
+
+		    	$param1=$days;
+		 
+		    	$result = \Yii::$app->db->createCommand("CALL usp_FacebookLeads(:paramName1)") 
+		                      ->bindValue(':paramName1' , $param1 )
+		                      ->queryAll();
+ 
+					foreach($result as $lead){
+					//	var_dump($lead['latitude']);
+						$coord=new LatLng(['lat'=>$lead['latitude'],'lng'=>$lead['longitude']]);		
+						$marker=new Marker([
+							'position'=>$coord,
+							'title'=>$lead['name']]);
+						$marker->attachInfoWindow(
+			    				new InfoWindow([
+			        				'content' => '<p>'.$lead['name'].'</p>'
+			    				])
+							);	
+						$map->addOverlay($marker);
+					}
+					return $this->render('fbleads',['map'=>$map]); 
+		}
+    }
 
     public function actionType($model_type=false)
     {

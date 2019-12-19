@@ -241,8 +241,9 @@ class DealerController extends Controller
 		    'height'=>'800'
 		]);
 
-		$dealers=TblDealer::find()->where(['fb_onboard'=>1,'cardealer'=>1])->all();
+		$dealers=TblDealer::find()->where(['fb_onboard'=>1,'cardealer'=>1,'dd_customer'=>1])->limit(200)->all();
 		foreach($dealers as $dealer){
+            /*
 			$vehicles=$dealer->vehicles;
 			$vc=0;
 			foreach($vehicles as $vehicle){
@@ -250,6 +251,8 @@ class DealerController extends Controller
 			    	$vc++;
 			    }	    
 			}
+            */
+            $vc=count($dealer->vehicles);
 			$coord=new LatLng(['lat'=>$dealer->latitude,'lng'=>$dealer->longitude]);		
 			$marker=new Marker([
 				'position'=>$coord,
@@ -261,7 +264,7 @@ class DealerController extends Controller
 				);	
 			$map->addOverlay($marker);
 		}
-	       return $this->render('facebook',['dealers'=>$dealers,'map'=>$map]); 
+           return $this->render('facebook',['dealers'=>$dealers,'map'=>$map]); 
 	    }
     }
 
