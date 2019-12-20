@@ -7,7 +7,7 @@ $types= array('Coupe','Convertible','Estate','Hatchback', 'MPV', 'Saloon', 'Pick
 $monthparam= array(1,2,3,4,5,6);
 $fromparam=array(1000,2000,3000,4000,5000,6000,7000,8000,9000,10000);
 $toparam=array(10000,15000,20000,25000,30000,35000,40000);
-
+$selected=$seltime=$selfrom=$selto='';
 $script = <<< JS
       $(document).ready(function() {
             $("#submit").click(function(){      

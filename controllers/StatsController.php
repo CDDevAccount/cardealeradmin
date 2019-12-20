@@ -118,10 +118,12 @@ class StatsController extends \yii\web\Controller
     }
 /*
 
-
+Map of leads over time
+If the new options is selected the map shows just those customers who have not signed a DD
+e.g. Are not Car Dealer Customers
 */
 
-    public function actionMap($days=1)
+    public function actionMap($days=1,$new=0)
     {
     	//die(var_dump('here'));
         if (Yii::$app->user->isGuest) {
@@ -136,27 +138,36 @@ class StatsController extends \yii\web\Controller
 	    		]);
 
 		    	$param1=$days;
-		 
-		    	$result = \Yii::$app->db->createCommand("CALL usp_FacebookLeads(:paramName1)") 
-		                      ->bindValue(':paramName1' , $param1 )
-		                      ->queryAll();
- 
-					foreach($result as $lead){
-					//	var_dump($lead['latitude']);
-						$coord=new LatLng(['lat'=>$lead['latitude'],'lng'=>$lead['longitude']]);		
-						$marker=new Marker([
-							'position'=>$coord,
-							'title'=>$lead['name']]);
-						$marker->attachInfoWindow(
-			    				new InfoWindow([
-			        				'content' => '<p>'.$lead['name'].'</p>'
-			    				])
-							);	
-						$map->addOverlay($marker);
-					}
-					return $this->render('fbleads',['map'=>$map]); 
+		 		if ($new){
+			    	$result = \Yii::$app->db->createCommand("CALL usp_FacebookLeads4NonCustomers(:paramName1)") 
+			                      ->bindValue(':paramName1' , $param1 )
+			                      ->queryAll();
+		 		}else{
+			    	$result = \Yii::$app->db->createCommand("CALL usp_FacebookLeads(:paramName1)") 
+			                      ->bindValue(':paramName1' , $param1 )
+			                      ->queryAll();		 			
+		 		}
+
+
+				foreach($result as $lead){
+				//	var_dump($lead['latitude']);
+					$vc=$lead['leads'];
+					$coord=new LatLng(['lat'=>$lead['latitude'],'lng'=>$lead['longitude']]);		
+					$marker=new Marker([
+						'position'=>$coord,
+						'title'=>$lead['dealer']]);
+					$marker->attachInfoWindow(
+		    				new InfoWindow([
+		        				'content' => '<p>'.$lead['dealer'].'</p><p>'.$vc.' Leads</p>'
+		    				])
+						);	
+					$map->addOverlay($marker);
+				}
+				return $this->render('fbleads',['map'=>$map]); 
 		}
     }
+
+
 
     public function actionType($model_type=false)
     {
