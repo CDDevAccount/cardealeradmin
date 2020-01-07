@@ -11,14 +11,17 @@ use dosamigos\tinymce\TinyMce;
 <div class="tbl-dealer-form">
  <div class='col-md-4'>
     <?php $form = ActiveForm::begin(); ?>
-    <div class='panel panel-default'>
-        <div class='panel-heading'>
-        Address Details</div>
+
+    <?php if ($model->dd_customer==1) {?>
+        <div class='panel panel-danger'>
+    <?php }else{ ?>
+        <div class='panel panel-default'>
+    <?php } ?>
+        <div class='panel-heading '>Address Details</div>
+        
         <div class="panel-body">    
             <?php // $form->field($model, 'pid')->textInput() ?>
-
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
             <?= $form->field($model, 'branchname')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'address1')->textInput(['maxlength' => true])->label('Address') ?>
             <?= $form->field($model, 'address2')->textInput(['maxlength' => true])->label(false) ?>
@@ -28,20 +31,23 @@ use dosamigos\tinymce\TinyMce;
             <?= $form->field($model, 'postcode')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'outcode')->textInput(['maxlength' => true]) ?>
             <div class='row'>
-            <div class='col-md-6'>
-            <?= $form->field($model, 'longitude')->textInput(['maxlength' => true,'style'=>'width:100px'])->label('Long.') ?>
-            </div>
-            <div class='col-md-6'>
-                <?= $form->field($model, 'latitude')->textInput(['maxlength' => true,'style'=>'width:100px'])->label('Lat.') ?>
-            </div>
+                <div class='col-md-6'>
+                <?= $form->field($model, 'longitude')->textInput(['maxlength' => true,'style'=>'width:100px'])->label('Long.') ?>
+                </div>
+                <div class='col-md-6'>
+                    <?= $form->field($model, 'latitude')->textInput(['maxlength' => true,'style'=>'width:100px'])->label('Lat.') ?>
+                </div>
             </div>
         </div>
     </div>
 </div>
  <div class='col-md-4'>
-    <div class='panel panel-default'>
-        <div class='panel-heading'>
-        Contact Details</div>
+    <?php if ($model->dd_customer==1) {?>
+        <div class='panel panel-danger'>
+    <?php }else{ ?>
+        <div class='panel panel-default'>
+    <?php } ?>
+        <div class='panel-heading'>Contact Details</div>
         <div class="panel-body">
             <?= $form->field($model, 'contact_name')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'contact_title')->textInput(['maxlength' => true]) ?>
@@ -61,7 +67,11 @@ use dosamigos\tinymce\TinyMce;
 
 </div>
 <div class='col-md-4'>
-    <div class='panel panel-default'>
+    <?php if ($model->dd_customer==1) {?>
+        <div class='panel panel-danger'>
+    <?php }else{ ?>
+        <div class='panel panel-default'>
+    <?php } ?>
         <div class='panel-heading'>
         Account & FB Options</div>
         <div class="panel-body">

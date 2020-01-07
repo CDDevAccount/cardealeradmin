@@ -227,19 +227,21 @@ class DealerController extends Controller
         }
     }
 
-
+/*
+    Create a map illustrating dealers who are signed up to Car Dealer with DD and have leads being sent to facebook
+*/
     public function actionFacebooked()
     {
 	    if (Yii::$app->user->isGuest){
 	    	return $this->goHome();
 	    }else{
-		$coord = new LatLng(['lat' => 52.658092, 'lng' => -1.120892]);
-		$map = new Map([
-		    'center' => $coord,
-		    'zoom' => 7,
-		    'width'=>'100%',
-		    'height'=>'800'
-		]);
+    		$coord = new LatLng(['lat' => 52.658092, 'lng' => -1.120892]);
+    		$map = new Map([
+    		    'center' => $coord,
+    		    'zoom' => 7,
+    		    'width'=>'100%',
+    		    'height'=>'800'
+    		]);
 
 		$dealers=TblDealer::find()->where(['fb_onboard'=>1,'cardealer'=>1,'dd_customer'=>1])->limit(200)->all();
 		foreach($dealers as $dealer){

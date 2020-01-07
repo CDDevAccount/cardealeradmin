@@ -4,6 +4,9 @@ namespace app\models;
 
 use Yii;
 
+use yii\db\ActiveRecord;
+
+use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "tbl_dealer".
  *
@@ -99,6 +102,36 @@ class TblDealer extends \yii\db\ActiveRecord
         ];
     }
 
+
+/* 
+
+    Time stamp records
+
+*/
+    public function behaviors()
+
+    {
+
+        return [
+
+            [
+
+                'class' => TimestampBehavior::className(),
+
+                'attributes' => [
+
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+
+                ],
+                'value' => function() { return date('c');},
+
+            ],
+
+        ];
+
+    }
     /**
      * @return \yii\db\ActiveQuery
      */
