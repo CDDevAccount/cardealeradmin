@@ -36,7 +36,7 @@ use yii\grid\GridView;
 							    'format'=>['integer']
 							],				        	
 
-											            'name',
+				            'name',
 							[
 							    'label' => 'Value',
 							    'attribute' =>'DealerValue',
@@ -91,14 +91,15 @@ use yii\grid\GridView;
 							    'format'=>['integer']
 							],				        	
 
-											            'Dealer',
+				            'Dealer',
+				            /*
 							[
 							    'label' => 'Value',
 							    'attribute' =>'Total',
 							   // 'contentOptions' => ['class' => 'col-lg-1'],
 							    'format'=>['decimal',0]
 							],
-
+								*/
 							[
 							    'label' => 'Avg',
 							    'attribute' =>'AverageValue',
@@ -137,12 +138,14 @@ use yii\grid\GridView;
 							],				        	
 
 				            'Dealer',
+				            /*
 							[
 							    'label' => 'Value',
 							    'attribute' =>'Total',
 							   // 'contentOptions' => ['class' => 'col-lg-1'],
 							    'format'=>['decimal',0]
 							],
+							*/
 
 							[
 							    'label' => 'Avg',

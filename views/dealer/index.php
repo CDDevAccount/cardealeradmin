@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchDealer */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create New Dealer', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Dealer Facebook Map', ['facebooked'], ['class' => 'btn btn-warning']) ?>
         <?= Html::a('Dealer Map', ['map'], ['class' => 'btn btn-danger']) ?>
+
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -59,4 +61,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ],
     ]); ?>
+
 </div>

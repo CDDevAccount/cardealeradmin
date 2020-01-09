@@ -52,7 +52,7 @@ class TblDealer extends \yii\db\ActiveRecord
             [['updated_at', 'created_at'], 'safe'],
             [['name', 'branchname', 'address1', 'address2', 'address3', 'city', 'dealer_web', 'dealer_email','website_provider','dms_provider','dealer_privacy'], 'string', 'max' => 255],
             [['postcode','longitude','latitude'], 'string', 'max' => 10],
-            [['postcode','longitude','latitude','city','dealer_web', 'dealer_privacy' ], 'required'],
+            [['postcode','longitude','latitude','city','dealer_web', 'dealer_privacy','district','address1' ], 'required'],
             [['comment'],'string'],
             [['phone', 'mobile','cd_phone_number'], 'string', 'max' => 50],
             [['contact_name'], 'string', 'max' => 100],

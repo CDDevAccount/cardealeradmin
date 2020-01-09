@@ -7,10 +7,12 @@ use Yii;
 use app\models\TblDealer;
 use app\models\SearchLiveDealer;
 use app\models\SearchDealerTotals;
+use app\models\UvwTodaysFBLeads;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 //use Illuminate\Support\Facades\DB;
+use yii\data\ActiveDataProvider;
 use yii\db\Query;
 
 
@@ -58,13 +60,21 @@ class DealerController extends Controller
         $searchModel = new SearchLiveDealer();
     	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
     	$dataProvider->pagination = ['pageSize' => 100];
+        $todayleadProvider= new ActiveDataProvider([
+            'query' => UvwTodaysFBLeads::find(),
 
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+       // die(var_dump($todayleadProvider));
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
     	}else{
             return $this->render('index', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'todayleadProvider'=> $todayleadProvider,
         	]);
     	}
     }
