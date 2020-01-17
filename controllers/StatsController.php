@@ -138,6 +138,26 @@ e.g. Are not Car Dealer Customers
 	    		]);
 
 		    	$param1=$days;
+		    	switch ($new){
+		    		case 0:
+			    	$result = \Yii::$app->db->createCommand("CALL usp_FacebookLeads(:paramName1)") 
+			                      ->bindValue(':paramName1' , $param1 )
+			                      ->queryAll();			    		
+		    		break;
+		    		case 1:
+			    	$result = \Yii::$app->db->createCommand("CALL usp_FacebookLeads4NonCustomers(:paramName1)") 
+			                      ->bindValue(':paramName1' , $param1 )
+			                      ->queryAll();		    		
+		    		break;
+		    		case 2;
+			    	$result = \Yii::$app->db->createCommand("CALL usp_FacebookLeads4Customers(:paramName1)") 
+			                      ->bindValue(':paramName1' , $param1 )
+			                      ->queryAll();	
+		    		break;
+
+		    	}
+
+/*
 		 		if ($new){
 			    	$result = \Yii::$app->db->createCommand("CALL usp_FacebookLeads4NonCustomers(:paramName1)") 
 			                      ->bindValue(':paramName1' , $param1 )
@@ -148,7 +168,7 @@ e.g. Are not Car Dealer Customers
 			                      ->queryAll();		 			
 		 		}
 
-
+*/
 				foreach($result as $lead){
 				//	var_dump($lead['latitude']);
 					$vc=$lead['leads'];

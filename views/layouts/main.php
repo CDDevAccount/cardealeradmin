@@ -40,11 +40,17 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-         //   ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Stock/Leads Stats', 'url' => ['/stats/index']],
-            ['label' => 'Model Stats', 'url' => ['/stats/stats']],
-            ['label' => 'Dealer OnBoard Map', 'url' => ['/dealer/facebooked']],
-            ['label' => 'Lead Map', 'url' => ['/stats/map']],
+            ['label' => 'Model Statistics', 'url' => ['/stats/stats']],
+            ['label' => 'Lead Maps', 'items' => [
+                ['label' => 'Dealer Signed Map', 'url' => ['/dealer/facebooked']],
+                ['label' => 'Dealer Signed up 7 Days', 'url' => ['/stats/map?days=7&new=2']],
+                ['label' => 'Lead Map', 'url' => ['/stats/map']],
+                ['label' => 'Leads Last 24 Hours', 'url' => ['/stats/map?days=1&new=0']],
+                ['label' => 'Leads Last 7 Days', 'url' => ['/stats/map?days=7&new=0']],
+                
+
+            ]],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
