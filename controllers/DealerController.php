@@ -279,6 +279,33 @@ class DealerController extends Controller
            return $this->render('facebook',['dealers'=>$dealers,'map'=>$map]); 
 	    }
     }
+/*
+
+*/
+    public function actionGmbposts()
+    {
+            $query = new Query;
+            // compose the query
+            $query->select('count(1) cars,status_name, name')
+                ->from('tbl_local_post')->join('INNER JOIN','tbl_dealer','tbl_dealer.id=tbl_local_post.dealer_id')->join('inner join','tbl_local_post_status','tbl_local_post_status.status=tbl_local_post.status')
+                ->groupBy(['dealer_id','tbl_local_post.status']);
+            // build and execute the query
+
+$dataProvider = new ActiveDataProvider([
+    'query' => $query,
+    'pagination' => [
+        'pageSize' => 20,
+    ],
+]);
+
+
+            //$rows = $query->all();
+            return $this->render('gmb_summary',['dataProvider'=>$dataProvider]);
+         //   die(var_dump($rows));
+
+    }
+//    select  count(1) as cars, status,d.name from tbl_local_post tlp inner join tbl_dealer d on d.id=tlp.dealer_id  group by dealer_id,status; 
+
 
     /**
      * Finds the TblDealer model based on its primary key value.
