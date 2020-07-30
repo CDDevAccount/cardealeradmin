@@ -57,30 +57,34 @@ class VehicleController extends Controller
      */
     public function actionView($id)
     {
-        $i=0;
-        $imageurls= array();
-        $baseurl='https://media.cardealer.co.uk';
-       
-        $model=$this->findModel($id);
-        $reg=$model->registration;
-        //var_dump($model->registration);
-        $images=LinkCarImages::find()->where(['registration'=>$model->registration])->all();
-        if (is_array($images)){
-            foreach ($images as $image){
-                //var_dump($image->imagename);
-                $imageurls[$i] = $baseurl.'/'.$reg.'/'.$image->imagename;
-                $i++;
-            }
-            
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
         }else{
-            $imageurls=false;
+            $i=0;
+            $imageurls= array();
+            $baseurl='https://media.cardealer.co.uk';
+           
+            $model=$this->findModel($id);
+            $reg=$model->registration;
+            //var_dump($model->registration);
+            $images=LinkCarImages::find()->where(['registration'=>$model->registration])->all();
+            if (is_array($images)){
+                foreach ($images as $image){
+                    //var_dump($image->imagename);
+                    $imageurls[$i] = $baseurl.'/'.$reg.'/'.$image->imagename;
+                    $i++;
+                }
+                
+            }else{
+                $imageurls=false;
+            }
+         //   var_dump($pubimages);
+            return $this->render('view', [
+                'model' => $model, //$this->findModel($id),
+                'images' =>$imageurls,
+                'imagemodels'=>$images,
+            ]);
         }
-     //   var_dump($pubimages);
-        return $this->render('view', [
-            'model' => $model, //$this->findModel($id),
-            'images' =>$imageurls,
-            'imagemodels'=>$images,
-        ]);
     }
 
 
