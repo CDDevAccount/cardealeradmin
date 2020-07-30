@@ -87,9 +87,13 @@ class DealerController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }else{
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
     /**
@@ -99,15 +103,19 @@ class DealerController extends Controller
      */
     public function actionCreate()
     {
-        $model = new TblDealer();
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }else{
+            $model = new TblDealer();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -119,18 +127,23 @@ class DealerController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
-    	}else{
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        }else{
+
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            if (Yii::$app->user->isGuest) {
+                return $this->goHome();
+        	}else{
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
         }
     }
 
@@ -284,23 +297,27 @@ class DealerController extends Controller
 */
     public function actionGmbposts()
     {
-            $query = new Query;
-            // compose the query
-            $query->select('count(1) cars,status_name, name')
-                ->from('tbl_local_post')->join('INNER JOIN','tbl_dealer','tbl_dealer.id=tbl_local_post.dealer_id')->join('inner join','tbl_local_post_status','tbl_local_post_status.status=tbl_local_post.status')
-                ->groupBy(['dealer_id','tbl_local_post.status']);
-            // build and execute the query
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }else{
+                $query = new Query;
+                // compose the query
+                $query->select('count(1) cars,status_name, name')
+                    ->from('tbl_local_post')->join('INNER JOIN','tbl_dealer','tbl_dealer.id=tbl_local_post.dealer_id')->join('inner join','tbl_local_post_status','tbl_local_post_status.status=tbl_local_post.status')
+                    ->groupBy(['dealer_id','tbl_local_post.status']);
+                // build and execute the query
 
-$dataProvider = new ActiveDataProvider([
-    'query' => $query,
-    'pagination' => [
-        'pageSize' => 20,
-    ],
-]);
+                    $dataProvider = new ActiveDataProvider([
+                        'query' => $query,
+                        'pagination' => [
+                            'pageSize' => 20,
+                        ],
+                    ]);
 
 
-            //$rows = $query->all();
-            return $this->render('gmb_summary',['dataProvider'=>$dataProvider]);
+                //$rows = $query->all();
+                return $this->render('gmb_summary',['dataProvider'=>$dataProvider]);
+        }
          //   die(var_dump($rows));
 
     }

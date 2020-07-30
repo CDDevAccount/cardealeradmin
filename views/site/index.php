@@ -21,7 +21,7 @@ $this->title = 'Car Dealer Media - Admin Area';
 
                 <p>Here you can amend dealer details. These include contact details, address, telephone email address etc </p>
 
-                <p><a class="btn btn-default" href="/dealer">Dealers &raquo;</a></p>
+                <p><a class="btn btn-default" href="/dealer">Dealers &raquo;</a><a class="btn btn-default" href="/dealer/gmbposts">GMB Adverts &raquo;</a></p>
             </div>
             <div class="col-lg-4">
                 <h2>Towns</h2>

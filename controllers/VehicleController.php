@@ -36,13 +36,17 @@ class VehicleController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new SearchVehicles();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }else{
+            $searchModel = new SearchVehicles();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
@@ -111,15 +115,19 @@ class VehicleController extends Controller
      */
     public function actionCreate()
     {
-        $model = new TblVehicles();
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }else{
+            $model = new TblVehicles();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+         }
     }
 
     /**
@@ -131,15 +139,19 @@ class VehicleController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }else{
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -151,9 +163,13 @@ class VehicleController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }else{
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+        }
     }
 
     /**

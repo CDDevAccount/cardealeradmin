@@ -21,7 +21,10 @@
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-grid": "@dev",
         "2amigos/yii2-google-maps-library": "*",
-        "2amigos/yii2-tinymce-widget": "~1.1"
+        "2amigos/yii2-tinymce-widget": "~1.1",
+        "google/apiclient": "^2.0",
+        "yiisoft/yii2-authclient": "^2.2",
+        "dakkusingh/google-api-services-mybusiness": "^4.3"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
