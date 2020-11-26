@@ -10,7 +10,14 @@ use yii\grid\GridView;
         'cars',
         'name',
         'status_name',
-        'created_at:datetime',
+		[
+			'label'=>'Edit', 
+			'format' => 'raw',
+		    'value'=>function ($data) {
+		        return Html::a(Html::encode("View"),'/gmbpost');
+		    },
+		],
+
         // ...
     ],
 ]) ?>

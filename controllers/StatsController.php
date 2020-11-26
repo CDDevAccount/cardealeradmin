@@ -16,7 +16,8 @@ use app\models\UvwUnitsPickups;
 use app\models\UvwUnitsSaloon;
 use app\models\UvwUnitsSUV;
 use app\models\UvwTodaysFBLeads;
-
+use app\models\UvwFacebookLeadsThisMonth;
+use app\models\UvwFacebookLeadsByWeekdayThisMonth;
 
 use app\models\SearchLiveDealer;
 use app\models\SearchDealerTotals;
@@ -213,6 +214,33 @@ e.g. Are not Car Dealer Customers
     	}
     }
 
+
+    public function actionFacebook()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+    	}else{
+			$thisMonthFacebookByDay = new ActiveDataProvider([
+			    'query' => UvwFacebookLeadsThisMonth::find(),
+			    'pagination' => [
+			        'pageSize' => 31,
+			    ],
+			]);
+
+			$thisMonthFacebookByWeekday = new ActiveDataProvider([
+			    'query' => UvwFacebookLeadsByWeekdayThisMonth::find(),
+			    'pagination' => [
+			        'pageSize' => 10,
+			    ],
+			]);
+
+			return $this->render('facebook', [
+				
+				'fbdaily'=> $thisMonthFacebookByDay,
+				'fbweekday'=> $thisMonthFacebookByWeekday
+			]);
+    	}    	
+    }
 
 
 

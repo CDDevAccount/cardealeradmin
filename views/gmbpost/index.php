@@ -1,13 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-
+//use yii\grid\GridView;
+use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
+use app\models\TblLocalPostStatus;
+use app\models\TblDealer;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Searchgmbposts */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tbl Local Posts';
+$this->title = 'Google Rocket Posts';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tbl-local-post-index">
@@ -16,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tbl Local Post', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php // Html::a('Create Tbl Local Post', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,23 +28,74 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'dealer_id',
-            'vehicle_id',
-            'created_at',
-            'amended_at',
-            //'local_id',
-            //'post_type',
-            //'start_date',
-            //'end_date',
-            //'start_time',
-            //'end_time',
+       //     'id',
+          //  'dealer_id',
+        [
+            'attribute'=>'dealer_id',
+            'label'=>'Dealer Name',
+            'filter'    => ArrayHelper::map(TblDealer::find()->orderBy('id')->where(['not',['gmb_locationid'=>NULL]])->all(), 'id', 'name'),
+            'format'=>'text',//raw, html
+            'content'=>function($data){
+                return $data->dealer->name;
+            }
+        ],
+      //      'vehicle_id',
+        [
+            'attribute'=>'vehicle_id',
+            'label'=>'Make/Model',
+            'format'=>'text',//raw, html
+            'filter'=>false,
+            'content'=>function($data){
+                return $data->vehicle->make.' '.$data->vehicle->model;
+            }
+        ],
+            [
+
+                'attribute' => 'img',
+
+                'format' => 'html',
+
+                'label' => 'Image Used',
+
+                'value' => function ($data) {
+                    $url = $data->image_url;
+                    return Html::img($url ,
+
+                        ['width' => '180px']);
+
+                },
+
+            ],
+            [
+                'attribute'=>'summary',
+                'label' => 'Summary',
+                'filter'=>false,
+                'contentOptions' => ['style' => 'width:300px; white-space: normal;'],
+
+            ],
             //'summary',
             //'event_title',
             //'action_type',
-            //'image_url:url',
+          //  'image_url:url',
             //'postname',
-            //'cta_url:url',
+            [
+                'attribute'=>'cta_url',
+                'label' => 'Deep Link',
+                'format'=> 'url',
+                'filter'=>false,
+                'contentOptions' => ['style' => 'width:200px;'],               
+            ],
+           // 'cta_url:url',
+            [
+                'attribute' => 'status',
+                'contentOptions' => ['style' => 'width:200px;'],     
+                'filter'    => ArrayHelper::map(TblLocalPostStatus::find()->orderBy('status')->all(), 'status', 'status_name'),
+                'content' => function($data){
+                    return $data->status;
+                }
+            ],
+          //  'status',
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

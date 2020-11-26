@@ -139,4 +139,9 @@ class TblDealer extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TblVehicles::className(), ['did' => 'id'])->orderBy(['make' => SORT_ASC,'model_family'=>SORT_ASC]);
     }
+
+    public function getGMBPosts()
+    {
+        return $this->hasMany(TblLocalPost::className(), ['did'=>'id'])->orderBy(['created_at'=>SORT_DESC]);
+    }
 }

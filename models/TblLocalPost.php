@@ -99,4 +99,8 @@ class TblLocalPost extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TblVehicles::className(), ['id' => 'vehicle_id']);
     }
+    public function getStatus()
+    {
+        return $this->hasOne(TblLocalPostStatus::className(),['status' => 'status']);
+    }
 }

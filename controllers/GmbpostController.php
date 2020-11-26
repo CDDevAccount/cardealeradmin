@@ -8,7 +8,7 @@ use app\models\Searchgmbposts;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Url;
 /**
  * GmbpostController implements the CRUD actions for TblLocalPost model.
  */
@@ -37,7 +37,7 @@ class GmbpostController extends Controller
     {
         $searchModel = new Searchgmbposts();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        Url::remember();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -87,7 +87,8 @@ class GmbpostController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(Url::previous());
         }
 
         return $this->render('update', [

@@ -18,6 +18,20 @@ $config = [
         ]
     ],
     'components' => [
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'httpClient' => [
+                'transport' => 'yii\httpclient\CurlTransport',
+            ],
+            'clients' => [
+                'google' => [
+                    'class' => 'yii\authclient\clients\Google',
+                    'clientId' => '379546293519-0fktl60p9v88iq8vpcaps5icg74o11vq',
+                    'clientSecret' => 'fCo8HdoUBUUkhlp7NcyaZpqn',
+                ],
+            ],
+        ],
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'nlzH0GLVZn65jNFhZsD1mmvut11Qa6VO',
@@ -54,6 +68,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+            '/' => 'site/index',
+        '<controller:\w+/?>' => '<controller>/index',
+        '<controller:\w+>/<id:\d+>' => '<controller>/view',
+        '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',                
             ],
         ],
         

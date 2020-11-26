@@ -41,8 +41,9 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Stock/Leads Stats', 'url' => ['/stats/index']],
-            ['label' => 'Model Statistics', 'url' => ['/stats/stats']],
+            ['label' => 'Leads Stats', 'url' => ['/stats/index']],
+            ['label' => 'Model Stats', 'url' => ['/stats/stats']],
+            ['label' => 'FB Month','url'=>['/stats/facebook/']],
             ['label' => 'Lead Maps', 'items' => [
                 ['label' => 'Dealer Signed Map', 'url' => ['/dealer/facebooked']],
                 ['label' => 'Dealer Signed up 7 Days', 'url' => ['/stats/map?days=7&new=2']],

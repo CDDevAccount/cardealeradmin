@@ -28,20 +28,30 @@ class GmbController extends Controller
 		$client = new \Google_Client();
 	    
 	    $KEY_FILE_LOCATION= $t.'/client_secret_379546293519-0fktl60p9v88iq8vpcaps5icg74o11vq.apps.googleusercontent.com-2.json';
-	   //    $KEY_FILE_LOCATION= $t.'/client_secret_3795.json';
 	    $client->setApplicationName("Hello Google My Business");
 	    $client->setAuthConfig($KEY_FILE_LOCATION);
 	    $client->setScopes(['https://www.googleapis.com/auth/business.manage']);
-
 	    $auth_url = $client->createAuthUrl();
-
+// Header re-direct to go to gmb/auth -> this->actionAuth()
 	    header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
 	    die();
     }
 
-/*
-Accepts Code for authentication to POST to google my business API
 
+    public function actionRocket($did=7319)
+    {
+    	// Get cars & Insert into Local Posts
+
+    	// Get token & Request access to Location
+    	
+    	// Upload cars to google my business location
+    	$token=$this->getToken();
+    	return $token;
+    }
+/*
+Receives Access Token Code for authentication to POST to google my business API
+Fetches the Account Name
+Fetches the Account Location
 */
 
     public function actionAuth()
@@ -49,14 +59,24 @@ Accepts Code for authentication to POST to google my business API
 
     	$client = new \Google_Client();
 
-    	//$client->setAuthConfig(\Yii::getAlias('@app').'/client_credentials.json');
     	$client->setAuthConfig(\Yii::getAlias('@app').'/client_secret_379546293519-0fktl60p9v88iq8vpcaps5icg74o11vq.apps.googleusercontent.com-2.json');
     	$client->setApplicationName('Car Dealer Posting');
     	$token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-//die(var_dump($token));
+// Find the account name
     	$accountname=$this->getAccountno($token);
+// Find the location
     	$location=$this->getLocation($token,$accountname);
 
+    }
+
+    private function getToken()
+    {
+    	$client = new \Google_Client();
+    	$token=false;
+    	$client->setAuthConfig(\Yii::getAlias('@app').'/client_secret_379546293519-0fktl60p9v88iq8vpcaps5icg74o11vq.apps.googleusercontent.com-2.json');
+    	$client->setApplicationName('Car Dealer Posting');
+    	$token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    	return $token;
     }
 
 /*
@@ -68,7 +88,6 @@ Accepts Code for authentication to POST to google my business API
 		$curl = curl_init('https://mybusiness.googleapis.com/v4/accounts/');
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Bearer " . $token['access_token']));
 		curl_setopt_array($curl, array(
-		//  CURLOPT_URL => $url,
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_MAXREDIRS => 10,
 		  CURLOPT_SSL_VERIFYPEER => false,
@@ -79,10 +98,8 @@ Accepts Code for authentication to POST to google my business API
 		));
 
 		$response = curl_exec($curl);
-//die(var_dump($response));
 		$result=json_decode($response);
 		foreach ($result->accounts as $account => $value) {
-			# code...
 			$acname=$value->name;
 		}
 		return $acname;
@@ -91,7 +108,7 @@ Accepts Code for authentication to POST to google my business API
 
 
 /*
-	Returns the first location
+	Returns the account locations
 */
     private function getLocation($token=0,$accountname='')
     {
@@ -114,21 +131,45 @@ Accepts Code for authentication to POST to google my business API
 
 		foreach ($result->locations as $location => $value) {	
 			$locid= basename($value->name);
-		//	die(var_dump($value));
-			$res=$this->processGMB($value->name,$token);
-				echo $value->locationName.' id= '.$locid.'<br/>';
-			/*
 
-			
+		//	$res=$this->processGMB($value->name,$token);
+
 			echo $value->locationName.' id= '.$locid.'<br/>';
 			# Spencers...
 			if ($locid=='16502723471430093758'){
-
-				//$this->processProducts($value);
-				// $this->doPosts($value->name,$token);
+					$res=$this->processGMB($value->name,$token);
+//				echo 'About to process '.$value->locationN. on Wame.' id= '.$locid.'<br/>';
+				// $this->processProducts($value);
+			//	 $this->doPosts($value->name,$token);
 				// $this->updatePosts($token);
 				// $this->deleteSoldPosts($token);
 			}
+			//Saxton4X4
+			if ($locid=='11481587233699700843'){
+				$res=$this->processGMB($value->name,$token);
+
+			}
+
+			//vanwise
+			if ($locid=='4792337818724182662'){
+				$res=$this->processGMB($value->name,$token);
+
+			}
+			//EMG Cambridge
+			if ($locid=='12531379421733523056'){
+				$res=$this->processGMB($value->name,$token);
+			}	
+
+			//EMG Thetford
+			if ($locid=='9906412623266613288'){
+				$res=$this->processGMB($value->name,$token);
+			}	
+
+			//EMG Ipswich (Mitsubishi)
+			if ($locid=='14143930494576594431'){
+				$res=$this->processGMB($value->name,$token);
+			}
+			/*			
 			// CarDealer
 			if ($locid=='14892738752853776443'){
 			//	die(var_dump($value));
@@ -148,7 +189,7 @@ Accepts Code for authentication to POST to google my business API
 				//$this->deleteSoldPosts($token);
 			//	$this->doPosts($value->name,$token);
 			}
-			// EMG Bury St Edmunds
+			// EMG Bury St Edmunds/p
 			if ($locid==4557678430519586161){
 				//$this->doPosts($value->name,$token);
 				// $this->deleteSoldPosts($token);
@@ -270,7 +311,6 @@ Select posts based on the dealer id returned.
 
 	$r_sold=$r_changed=$r_new='';
 
-	//die(var_dump($location));
 	if ($location){
 		$locid= basename($location);
 		$dealer =TblDealer::find()->where(['gmb_locationid'=>$locid])->one();
@@ -278,6 +318,8 @@ Select posts based on the dealer id returned.
 
 		if ($dealer){
 
+			echo 'processing '.$dealer->name.'<br/>'; ;
+/*
 			$solds=TblLocalPost::find()->where('status=3')->andwhere(['dealer_id'=>$dealer->id])->all();
 			//die(var_dump($solds));
 			$this->removeSold($solds,$token);
@@ -285,6 +327,8 @@ Select posts based on the dealer id returned.
 			$changes=TblLocalPost::find()->where('status=2')->andwhere(['dealer_id'=>$dealer->id])->all();
 		//	$this->updateImages($changes,$token,$location);
 
+
+*/
 			$new=TblLocalPost::find()->where('status=1')->andWhere(['gmbpostname' => null])->andwhere(['dealer_id'=>$dealer->id])->all();
 			$this->insertNew($new,$token,$location);
 		}
@@ -316,8 +360,10 @@ private function updateImages($changes,$token,$location){
 private function insertNew($new,$token,$location){
 	foreach ($new as $newone) {
 		# code...
+		//die(var_dump($newone));
 		//die(var_dump('insert new'.$location));
 		$this->setPost($token,$newone,'POST',$location);
+	//	die(var_dump('done'));
 	}	
 }
 
@@ -349,7 +395,7 @@ private function deletePost($post,$token){
 			curl_close($curl);
 
 			if (isset($error_msg)) {
-			    // TODO - Handle cURL error accordingly
+	    // TODO - Handle cURL error accordingly
 			    print_r($error_msg);
 			    $stat=$error_msg;
 			}else{
@@ -365,7 +411,6 @@ private function deletePost($post,$token){
 
 // accepts token,post and action
 private function setPost($token,$post,$action,$ac){
-
 	
 		if ($token&&$post&&$action){
 			$options=$this->getoptions($post);
@@ -379,7 +424,6 @@ private function setPost($token,$post,$action,$ac){
 					$curl = curl_init('https://mybusiness.googleapis.com/v4/'.$post->gmbpostname.'?updateMask=media');
 
 			}
-//die(var_dump('heere'));
 
 			curl_setopt($curl, CURLOPT_HTTPHEADER, array(                                                                          
 				'Content-Type: application/json',                                                                  
@@ -404,7 +448,7 @@ private function setPost($token,$post,$action,$ac){
 
 			$post->gmbpostname=$result->name;
 			$post->status=2;
-			$post->save();		
+			$post->save(false);		
 
 			return 'OK';
 		}
@@ -418,7 +462,9 @@ Push un processed Posts to GMB
 */
 private function doPosts($ac,$token){
 
-	$posts = TblLocalPost::find()->where('status=1')->andWhere(['gmbpostname' => null])->andwhere(['dealer_id'=>14451])->all();
+	//$posts = TblLocalPost::find()->where('status=1')->andWhere(['gmbpostname' => null])->andwhere(['dealer_id'=>14451])->all();
+	// Just Spencers cars
+	$posts = TblLocalPost::find()->where('status=1')->andWhere(['gmbpostname' => null])->andwhere(['dealer_id'=>7319])->all();
 
 	foreach($posts as $post){
 
@@ -470,7 +516,7 @@ private function setSummary($post){
     			case 'LEARN_MORE':
 	    	   		$options = 
 					array('languageCode' => 'en-US', 
-							'summary'=> 'For Sale '. $post->vehicle->year.' '. $post->vehicle->make.' '.$post->vehicle->model.'. in '.$post->dealer->city.' at '.$post->dealer->name.' '.$post->summary, 
+							'summary'=> $post->vehicle->year.' '.$post->vehicle->make.' '.$post->vehicle->model.' for sale in '.$post->dealer->city.' at '.$post->dealer->name.' '.$post->summary, 
 							'callToAction'=>array(
 								'actionType'=>'LEARN_MORE',
 								'url'=>$post->cta_url,
