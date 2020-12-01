@@ -30,25 +30,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
        //     'id',
           //  'dealer_id',
-        [
-            'attribute'=>'dealer_id',
-            'label'=>'Dealer Name',
-            'filter'    => ArrayHelper::map(TblDealer::find()->orderBy('id')->where(['not',['gmb_locationid'=>NULL]])->all(), 'id', 'name'),
-            'format'=>'text',//raw, html
-            'content'=>function($data){
-                return $data->dealer->name;
-            }
-        ],
+            [
+                'attribute'=>'dealer_id',
+                'label'=>'Dealer Name',
+                'filter'    => ArrayHelper::map(TblDealer::find()->orderBy('id')->where(['not',['gmb_locationid'=>NULL]])->all(), 'id', 'name'),
+                'format'=>'text',//raw, html
+                'content'=>function($data){
+                    return $data->dealer->name;
+                }
+            ],
       //      'vehicle_id',
-        [
-            'attribute'=>'vehicle_id',
-            'label'=>'Make/Model',
-            'format'=>'text',//raw, html
-            'filter'=>false,
-            'content'=>function($data){
-                return $data->vehicle->make.' '.$data->vehicle->model;
-            }
-        ],
+            [
+                'attribute'=>'vehicle_id',
+                'label'=>'Make/Model',
+                'format'=>'text',//raw, html
+                'filter'=>false,
+                'content'=>function($data){
+                    return $data->vehicle->make.' '.$data->vehicle->model;
+                }
+            ],
             [
 
                 'attribute' => 'img',
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $url = $data->image_url;
                     return Html::img($url ,
 
-                        ['width' => '180px']);
+                        ['width' => '120px']);
 
                 },
 
@@ -70,8 +70,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'summary',
                 'label' => 'Summary',
                 'filter'=>false,
-                'contentOptions' => ['style' => 'width:300px; white-space: normal;'],
+                'contentOptions' => ['style' => 'width:200px; white-space: normal;'],
 
+            ],
+           // 'cta_url:url',
+            [
+                'attribute' => 'status',
+                'headerOptions' => ['style' => 'width:10%'],
+                'contentOptions' => ['style' => 'width:200px;'],     
+                'filter'    => ArrayHelper::map(TblLocalPostStatus::find()->orderBy('status')->all(), 'status', 'status_name'),
+                'content' => function($data){
+                    return $data->status;
+                }
             ],
             //'summary',
             //'event_title',
@@ -83,17 +93,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Deep Link',
                 'format'=> 'url',
                 'filter'=>false,
-                'contentOptions' => ['style' => 'width:200px;'],               
+                'contentOptions' => ['style' => 'width:200px; white-space: normal;'],               
             ],
-           // 'cta_url:url',
-            [
-                'attribute' => 'status',
-                'contentOptions' => ['style' => 'width:200px;'],     
-                'filter'    => ArrayHelper::map(TblLocalPostStatus::find()->orderBy('status')->all(), 'status', 'status_name'),
-                'content' => function($data){
-                    return $data->status;
-                }
-            ],
+
           //  'status',
 
 

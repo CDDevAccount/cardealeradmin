@@ -134,7 +134,7 @@ Fetches the Account Location
 
 		//	$res=$this->processGMB($value->name,$token);
 
-			echo $value->locationName.' id= '.$locid.'<br/>';
+			// echo $value->locationName.' id= '.$locid.'<br/>';
 			# Spencers...
 			if ($locid=='16502723471430093758'){
 					$res=$this->processGMB($value->name,$token);
@@ -155,18 +155,47 @@ Fetches the Account Location
 				$res=$this->processGMB($value->name,$token);
 
 			}
+
+
 			//EMG Cambridge
 			if ($locid=='12531379421733523056'){
 				$res=$this->processGMB($value->name,$token);
 			}	
-
 			//EMG Thetford
 			if ($locid=='9906412623266613288'){
 				$res=$this->processGMB($value->name,$token);
 			}	
-
 			//EMG Ipswich (Mitsubishi)
 			if ($locid=='14143930494576594431'){
+				$res=$this->processGMB($value->name,$token);
+			}
+			// EMG Bury St Edmunds/p
+			if ($locid=='4557678430519586161'){
+				$res=$this->processGMB($value->name,$token);
+			}
+			//	EMG Ely
+			if ($locid=='15116145361398509972'){
+				//die(var_dump($value->name));
+				$res=$this->processGMB($value->name,$token);
+			}
+			// EMG 	Haverhill	
+			if ($locid=='9464637363322009510'){
+				$res=$this->processGMB($value->name,$token);
+			}
+			// EMG Kings Lynn
+			if ($locid=='8249454250876841011'){
+			   $res=$this->processGMB($value->name,$token);
+			}
+			// EMG Spalding
+			if ($locid=='10974974025400830774'){
+				$res=$this->processGMB($value->name,$token);
+			}
+			// EMG Duxford
+			if ($locid=='2655556248875119358'){
+				$res=$this->processGMB($value->name,$token);
+			}
+			//	EMG Boston
+			if ($locid=='7612439655815053418'){
 				$res=$this->processGMB($value->name,$token);
 			}
 			/*			
@@ -318,7 +347,7 @@ Select posts based on the dealer id returned.
 
 		if ($dealer){
 
-			echo 'processing '.$dealer->name.'<br/>'; ;
+			echo 'Processing '.$dealer->name.'<br/>'; ;
 /*
 			$solds=TblLocalPost::find()->where('status=3')->andwhere(['dealer_id'=>$dealer->id])->all();
 			//die(var_dump($solds));
