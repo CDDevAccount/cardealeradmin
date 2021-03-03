@@ -19,7 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php // Html::a('Create Tbl Local Post', ['create'], ['class' => 'btn btn-success']) ?>
+       <i class="fa fa-rocket" aria-hidden="true"></i>
+
+ <?= Html::a('Launch Google Rocket', ['/gmb', 'id' => 1], ['class' => 'btn btn-danger']) ?>
     </p>
 
     <?= GridView::widget([
