@@ -65,6 +65,8 @@ Fetches the Account Location
 // Find the account name
     	$accountname=$this->getAccountno($token);
 // Find the location
+
+    	//$location=$this->showLocations($token,$accountname);
     	$location=$this->getLocation($token,$accountname);
 
     }
@@ -106,7 +108,30 @@ Fetches the Account Location
 	}
 
 
+    private function showLocations($token=0,$accountname='')
+    {
+		$curl = curl_init('https://mybusiness.googleapis.com/v4/'.$accountname.'/locations/');
 
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Bearer " . $token['access_token']));
+		curl_setopt_array($curl, array(
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_SSL_VERIFYPEER => false,
+		  CURLOPT_TIMEOUT => 30,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => "GET"
+
+		));
+
+		$response = curl_exec($curl);
+		
+		$result=json_decode($response);
+
+		foreach ($result->locations as $location => $value) {	
+			$locid= basename($value->name);
+			echo $value->name.' '.$locid .' '.$value->locationName.'</br>';
+		}
+	}
 /*
 	Returns the account locations
 */
@@ -131,7 +156,7 @@ Fetches the Account Location
 
 		foreach ($result->locations as $location => $value) {	
 			$locid= basename($value->name);
-
+			echo $value->name. '</br>';
 		//	$res=$this->processGMB($value->name,$token);
 
 			// echo $value->locationName.' id= '.$locid.'<br/>';
@@ -167,6 +192,11 @@ Fetches the Account Location
 			}	
 			//EMG Ipswich (Mitsubishi)
 			if ($locid=='14143930494576594431'){
+				echo 'Ipswich Mitsubishi No longer posting';
+				//$res=$this->processGMB($value->name,$token);
+			}
+			// EMG Ipswich not Mitsubushi
+			if ($locid=='315751102911012676'){
 				$res=$this->processGMB($value->name,$token);
 			}
 			// EMG Bury St Edmunds/p
@@ -545,7 +575,7 @@ private function setSummary($post){
     			case 'LEARN_MORE':
 	    	   		$options = 
 					array('languageCode' => 'en-US', 
-							'summary'=> $post->vehicle->year.' '.$post->vehicle->make.' '.$post->vehicle->model.' for sale in '.$post->dealer->city.' at '.$post->dealer->name.' '.$post->summary, 
+							'summary'=> $post->vehicle->make.' '.$post->vehicle->model.' '.$post->vehicle->year.' for sale in '.$post->dealer->city.' at '.$post->dealer->name.' '.$post->summary, 
 							'callToAction'=>array(
 								'actionType'=>'LEARN_MORE',
 								'url'=>$post->cta_url,

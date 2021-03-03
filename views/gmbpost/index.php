@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
       //      'vehicle_id',
+            ['class' => 'yii\grid\ActionColumn'],
             [
                 'attribute'=>'vehicle_id',
                 'label'=>'Make/Model',
@@ -99,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
           //  'status',
 
 
-            ['class' => 'yii\grid\ActionColumn'],
+            
         ],
     ]); ?>
 </div>
