@@ -1,8 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+//use yii\widgets\ActiveForm;
 use dosamigos\tinymce\TinyMce;
+use kartik\switchinput\SwitchInput;
+use kartik\checkbox\CheckboxX;
+use kartik\form\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\TblDealer */
 /* @var $form yii\widgets\ActiveForm */
@@ -53,8 +56,9 @@ use dosamigos\tinymce\TinyMce;
             <?= $form->field($model, 'contact_title')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'dealer_web')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'dealer_email')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'email_good')->checkbox(array('label'=>''))->label('Email Verified?');//(['maxlength' => true]) ?>
-            <?= $form->field($model, 'dealer_privacy')->textInput(['maxlength' => true]) ?>
+
+             <?= $form->field($model, 'email_good')->widget(CheckboxX::classname(), ['initInputType' => CheckboxX::INPUT_CHECKBOX, 'autoLabel' => false])->label('Email/PrivacyUrl/Phone Ready and Verified?'); ?>
+            <?= $form->field($model, 'dealer_privacy')->textInput(['maxlength' => true])->label('"No" or Dealer Privacy Url') ?>
             <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'dealer_phone_good')->checkbox(array('label'=>''))->label('Phone verified?'); ?>
@@ -75,10 +79,10 @@ use dosamigos\tinymce\TinyMce;
         <div class='panel-heading'>
         Account & FB Options</div>
         <div class="panel-body">
-            <?= $form->field($model, 'fb_onboard')->checkbox(array('label'=>''))->label('Send to Facebook ?');//(['maxlength' => true]) ?>
+            <?= $form->field($model, 'fb_onboard')->widget(CheckboxX::classname(), ['initInputType' => CheckboxX::INPUT_CHECKBOX, 'autoLabel' => false])->label('Stock To Facebook?');//(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'cardealer')->checkbox(array('label'=>''))->label('Active on Car Dealer ?'); ?>
-            <?= $form->field($model, 'dd_customer')->checkbox(array('label'=>''))->label('Active Car Dealer A/C (DD)?'); ?>
+            <?= $form->field($model, 'cardealer')->widget(CheckboxX::classname(), ['initInputType' => CheckboxX::INPUT_CHECKBOX, 'autoLabel' => false])->label('Activated On Car Dealer?');; ?>
+            <?= $form->field($model, 'dd_customer')->widget(CheckboxX::classname(), ['initInputType' => CheckboxX::INPUT_CHECKBOX, 'autoLabel' => false])->label('Active Car Dealer A/C (DD)?'); ?>
 
             <?= $form->field($model, 'cd_phone_number')->textInput(['maxlength' => true]) ; ?>
             <?= $form->field($model, 'dealer_fb_page_id')->textInput(['maxlength' => true]) ; ?>

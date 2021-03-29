@@ -20,8 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
        <i class="fa fa-rocket" aria-hidden="true"></i>
+       <img src="rocket.jpeg" />
 
- <?= Html::a('Launch Google Rocket', ['/gmb', 'id' => 1], ['class' => 'btn btn-danger']) ?>
+ <?= Html::a(Html::img('rocket.jpeg'), ['/gmb', 'id' => 1], ['class' => 'btn btn-danger']) ?>
     </p>
 
     <?= GridView::widget([

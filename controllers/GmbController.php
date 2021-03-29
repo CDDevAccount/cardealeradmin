@@ -575,11 +575,11 @@ private function setSummary($post){
     			case 'LEARN_MORE':
 	    	   		$options = 
 					array('languageCode' => 'en-US', 
-							'summary'=> $post->vehicle->make.' '.$post->vehicle->model.' '.$post->vehicle->year.' for sale in '.$post->dealer->city.' at '.$post->dealer->name.' '.$post->summary, 
+							'summary'=> $post->vehicle->make.' '.$post->vehicle->model. ' for sale in '.$post->dealer->city.'.',// at '.$post->dealer->name,//.' '.$post->summary, 
 							'callToAction'=>array(
 								'actionType'=>'LEARN_MORE',
 								'url'=>$post->cta_url,
-							),
+							),id='map
 							'media'=>array(
 								'mediaFormat'=>'PHOTO',
 								'sourceUrl'=>$post->vehicle->default_image,

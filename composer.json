@@ -24,7 +24,10 @@
         "2amigos/yii2-tinymce-widget": "~1.1",
         "google/apiclient": "^2.0",
         "yiisoft/yii2-authclient": "^2.2",
-        "dakkusingh/google-api-services-mybusiness": "^4.3"
+        "dakkusingh/google-api-services-mybusiness": "^4.3",
+        "kartik-v/yii2-checkbox-x": "dev-master",
+        "kartik-v/yii2-widgets": "^3.4",
+        "kartik-v/yii2-editable": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

@@ -18,7 +18,7 @@ class SearchLiveDealer extends TblDealer
     {
         return [
             [['id', 'pid'], 'integer'],
-            [['name', 'branchname', 'address1', 'address2', 'address3', 'city', 'postcode', 'phone', 'mobile', 'contact_name', 'contact_title', 'dealer_web', 'dealer_email', 'outcode','longitude','latitude', 'updated_at', 'created_at'], 'safe'],
+            [['name', 'branchname','vehicle_count', 'address1', 'address2', 'address3', 'city', 'postcode', 'phone', 'mobile', 'contact_name', 'contact_title', 'dealer_web', 'dealer_email', 'outcode','longitude','latitude', 'updated_at', 'created_at'], 'safe'],
         ];
     }
 
@@ -79,6 +79,7 @@ class SearchLiveDealer extends TblDealer
             ->andFilterWhere(['like', 'dealer_email', $this->dealer_email])
             ->andFilterWhere(['like', 'outcode', $this->outcode])
             ->andFilterWhere(['like', 'longitude', $this->longitude])
+            ->andFilterWhere(['>', 'vehicle_count', $this->vehicle_count])
             ->andFilterWhere(['like', 'latitude', $this->latitude]);
 
         return $dataProvider;

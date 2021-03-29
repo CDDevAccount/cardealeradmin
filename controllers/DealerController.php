@@ -59,7 +59,7 @@ class DealerController extends Controller
     {
         $searchModel = new SearchLiveDealer();
     	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-    	$dataProvider->pagination = ['pageSize' => 100];
+    	$dataProvider->pagination = ['pageSize' => 20];
         $todayleadProvider= new ActiveDataProvider([
             'query' => UvwTodaysFBLeads::find(),
 
@@ -323,6 +323,61 @@ class DealerController extends Controller
     }
 //    select  count(1) as cars, status,d.name from tbl_local_post tlp inner join tbl_dealer d on d.id=tlp.dealer_id  group by dealer_id,status; 
 
+
+    Public function actionDealerfocus()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }else{
+                $query = new Query;
+                 $query->select('
+                    d.id,
+                   vehicle_count,
+                    `d`.`name` AS `name`,
+                    round(avg(`v`.`price`), 0) AS `AveragePrice`,
+                    sum(`v`.`price`) AS `StockValue`,
+                    `d`.`dealer_email` AS `dealer_email`,
+                    `d`.`dealer_privacy` AS `dealer_privacy`,
+                    `d`.`phone` AS `phone`,
+                    `d`.`dealer_web` AS `dealer_web`
+                from
+                    (`tbl_dealer` `d`
+                join `tbl_vehicles` `v` on
+                    ((`v`.`did` = `d`.`id`)))
+                group by
+                    `d`.`id`
+                having
+                    ((count(1) > 39)
+                    and (count(11) < 101))
+                order by
+                    `d`.`name`');
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+                'pagination' => [
+                    'pageSize' => 20,
+                ],
+            ]);
+            $searchModel = new SearchLiveDealer();
+           // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        }
+        return $this->render('dealerfocus',['dataProvider'=>$dataProvider]);
+
+
+    }
+
+
+public function actionDealerEdit()
+{
+    if (Yii::$app->user->isGuest) {
+        return $this->goHome();
+    }else{
+        $searchModel = new SearchLiveDealer();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 100];
+    }
+}
 
     /**
      * Finds the TblDealer model based on its primary key value.
