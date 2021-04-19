@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
 
+use yii\helpers\Url;
 
 use dosamigos\google\maps\LatLng;
 use dosamigos\google\maps\services\DirectionsWayPoint;
@@ -57,24 +58,27 @@ class DealerController extends Controller
      */
     public function actionIndex()
     {
+         Url::remember();
         $searchModel = new SearchLiveDealer();
     	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-    	$dataProvider->pagination = ['pageSize' => 20];
+    	$dataProvider->pagination = ['pageSize' => 120];
         $todayleadProvider= new ActiveDataProvider([
             'query' => UvwTodaysFBLeads::find(),
 
             'pagination' => [
-                'pageSize' => 20,
+                'pageSize' => 120,
             ],
         ]);
        // die(var_dump($todayleadProvider));
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
     	}else{
+             Url::remember();
+           
             return $this->render('index', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
-                'todayleadProvider'=> $todayleadProvider,
+                ':todayleadProvider'=> $todayleadProvider,
         	]);
     	}
     }
@@ -134,7 +138,9 @@ class DealerController extends Controller
             $model = $this->findModel($id);
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                // return $this->redirect(['view', 'id' => $model->id]);
+               // return $this->redirect(['index']);
+                return $this->redirect([Url::previous()]);
             }
 
             if (Yii::$app->user->isGuest) {
@@ -151,7 +157,7 @@ class DealerController extends Controller
      * Deletes an existing TblDealer model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     * @return mixed
+     * @return mixed:
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)

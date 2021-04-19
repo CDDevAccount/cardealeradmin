@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5599419a04514c9f97567f8b6d1d6836",
+    "content-hash": "9f2bf58cf19955351c71d23d2ff74c48",
     "packages": [
         {
             "name": "2amigos/yii2-google-maps-library",

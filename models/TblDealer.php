@@ -57,7 +57,7 @@ class TblDealer extends \yii\db\ActiveRecord
             [['phone', 'mobile','cd_phone_number'], 'string', 'max' => 50],
             [['contact_name'], 'string', 'max' => 100],
             [['contact_title'], 'string', 'max' => 25],
-            [['fb_onboard','cardealer','email_good','dealer_fb_page_id','dealer_phone_good','dd_customer'], 'integer' ],
+            [['fb_onboard','cardealer','email_good','dealer_fb_page_id','dealer_phone_good','dd_customer','verified'], 'integer' ],
             [['outcode'], 'string', 'max' => 5],
             [['name', 'postcode'], 'unique', 'targetAttribute' => ['name', 'postcode']],
         ];
@@ -144,4 +144,18 @@ class TblDealer extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TblLocalPost::className(), ['did'=>'id'])->orderBy(['created_at'=>SORT_DESC]);
     }
+    //Mark comment box
+    public function beforeSave($insert)
+        {
+                if (!parent::beforeSave($insert)) {
+                        $this->comment = $this->comment.'<br>'.date('c');
+                        return false;
+                }else{
+                        date_default_timezone_set("Europe/London");
+                        $user=  \Yii::$app->user->identity->username;
+                        $this->comment = $this->comment.' '.$user. ' edited at '.date('Y-m-d H:i').'<br>';
+
+                }
+            return true;
+        }
 }

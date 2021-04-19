@@ -57,11 +57,11 @@ use kartik\form\ActiveForm;
             <?= $form->field($model, 'dealer_web')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'dealer_email')->textInput(['maxlength' => true]) ?>
 
-             <?= $form->field($model, 'email_good')->widget(CheckboxX::classname(), ['initInputType' => CheckboxX::INPUT_CHECKBOX, 'autoLabel' => false])->label('Email/PrivacyUrl/Phone Ready and Verified?'); ?>
+             <?= $form->field($model, 'email_good')->checkBox(['label' => 'Email/PrivacyUrl/Phone Ready and Verified?']); ?>
             <?= $form->field($model, 'dealer_privacy')->textInput(['maxlength' => true])->label('"No" or Dealer Privacy Url') ?>
             <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'dealer_phone_good')->checkbox(array('label'=>''))->label('Phone verified?'); ?>
+            <?= $form->field($model, 'dealer_phone_good')->checkbox(array('label'=>'Phone Checked'))->label('Phone verified?'); ?>
             <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>    <?= $form->field($model, 'website_provider')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'dms_provider')->textInput(['maxlength' => true]) ?>
@@ -79,13 +79,20 @@ use kartik\form\ActiveForm;
         <div class='panel-heading'>
         Account & FB Options</div>
         <div class="panel-body">
-            <?= $form->field($model, 'fb_onboard')->widget(CheckboxX::classname(), ['initInputType' => CheckboxX::INPUT_CHECKBOX, 'autoLabel' => false])->label('Stock To Facebook?');//(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'cardealer')->widget(CheckboxX::classname(), ['initInputType' => CheckboxX::INPUT_CHECKBOX, 'autoLabel' => false])->label('Activated On Car Dealer?');; ?>
-            <?= $form->field($model, 'dd_customer')->widget(CheckboxX::classname(), ['initInputType' => CheckboxX::INPUT_CHECKBOX, 'autoLabel' => false])->label('Active Car Dealer A/C (DD)?'); ?>
+            <?= $form->field($model, 'cardealer')->checkBox(['label' => 'Activated On Car Dealer?']); ?>
+
+            <?= $form->field($model, 'fb_onboard')->checkBox(['label' => 'Stock To Facebook?']);//(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'dd_customer')->checkBox(['label' => 'Go Cardless Active?']) ; ?>
 
             <?= $form->field($model, 'cd_phone_number')->textInput(['maxlength' => true]) ; ?>
+
             <?= $form->field($model, 'dealer_fb_page_id')->textInput(['maxlength' => true]) ; ?>
+
+            <?= $form->field($model, 'verified')->checkBox(['label' => 'Farwa - Please confirm details verified','data-size'=>'small', 'class'=>'bs_switch' ,'style'=>'margin-bottom:4px;', 'id'=>'active']) ?>
+
+
         </div>
     </div>
 

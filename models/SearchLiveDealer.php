@@ -18,7 +18,7 @@ class SearchLiveDealer extends TblDealer
     {
         return [
             [['id', 'pid'], 'integer'],
-            [['name', 'branchname','vehicle_count', 'address1', 'address2', 'address3', 'city', 'postcode', 'phone', 'mobile', 'contact_name', 'contact_title', 'dealer_web', 'dealer_email', 'outcode','longitude','latitude', 'updated_at', 'created_at'], 'safe'],
+            [['name', 'branchname','vehicle_count', 'address1', 'address2', 'address3', 'city', 'postcode', 'phone', 'mobile', 'contact_name', 'contact_title', 'dealer_web', 'dealer_email', 'outcode','longitude','latitude','verified', 'fb_onboard','dd_customer','updated_at', 'created_at'], 'safe'],
         ];
     }
 
@@ -77,9 +77,13 @@ class SearchLiveDealer extends TblDealer
             ->andFilterWhere(['like', 'contact_title', $this->contact_title])
             ->andFilterWhere(['like', 'dealer_web', $this->dealer_web])
             ->andFilterWhere(['like', 'dealer_email', $this->dealer_email])
+            ->andFilterWhere(['like', 'email_good', $this->email_good])
             ->andFilterWhere(['like', 'outcode', $this->outcode])
             ->andFilterWhere(['like', 'longitude', $this->longitude])
             ->andFilterWhere(['>', 'vehicle_count', $this->vehicle_count])
+             ->andFilterWhere(['like', 'verified', $this->verified])
+             ->andFilterWhere(['like', 'fb_onboard', $this->fb_onboard])
+             ->andFilterWhere(['like', 'dd_customer', $this->dd_customer])
             ->andFilterWhere(['like', 'latitude', $this->latitude]);
 
         return $dataProvider;

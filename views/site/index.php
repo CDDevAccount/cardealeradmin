@@ -38,6 +38,15 @@ $this->title = 'Car Dealer Media - Admin Area';
                 <p><a class="btn btn-default" href="/vehicle">Cars &raquo;</a></p>
             </div>
         </div>
-
+      <div class="row">
+        <div class='col-lg-12'>
+              <?      if (Yii::$app->user->isGuest) { ?>
+                <h2>Must be signed in to view dashboard</h2>
+<?
+        }else{ ?>
+            <h2>Dealer Dashboard</h2>
+        <? } ?>
+        </div>
+      </div>
     </div>
 </div>

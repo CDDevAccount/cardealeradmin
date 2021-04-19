@@ -50,7 +50,7 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'outcode') ?>
     <?php  echo $form->field($model, 'longitude') ?>
     <?php  echo $form->field($model, 'latitude') ?>
-
+    <?php echo $form->field($model,'verified') ?>
     <?php // echo $form->field($model, 'updated_at') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>

@@ -77,6 +77,7 @@ class SearchDealer extends TblDealer
             ->andFilterWhere(['like', 'contact_title', $this->contact_title])
             ->andFilterWhere(['like', 'dealer_web', $this->dealer_web])
             ->andFilterWhere(['like', 'dealer_email', $this->dealer_email])
+              ->andFilterWhere(['like', 'verified', $this->verified])
             ->andFilterWhere(['like', 'outcode', $this->outcode]);
 
         return $dataProvider;

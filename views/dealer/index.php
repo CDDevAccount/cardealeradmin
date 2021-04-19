@@ -1,8 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+// use yii\grid\GridView;
+use  \kartik\grid\GridView;
 use yii\bootstrap\Modal;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SearchDealer */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -21,26 +23,37 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Dealer Map', ['map'], ['class' => 'btn btn-danger']) ?>
 
     </p>
+    <h2> Being edited by <?= \Yii::$app->user->identity->username ?></h2>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
     	'filterModel' => $searchModel,
     	'layout' => "{summary}\n{pager}\n{items}\n{pager}",
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            ['class' => 'yii\grid\ActionColumn'],
+        'resizableColumns'=>true,
+        'floatHeader'=>true,
+        'floatHeaderOptions'=>['top'=>'50'],
 
+        'columns' => [
+        //    ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
         //    'id',
         //    'pid',
             'name',
            // 'branchname',
-            'address1',
+          //  'address1',
             //'address2',
             //'address3',
            // 'city',
             'postcode',
     //        'phone',
-            'dd_customer:boolean',
+        [
+            'label' => 'Go Cardless Signed',
+            'attribute' => 'dd_customer',
+            'format' => 'boolean',
+            'filter' => [0=>'No',1=>'Yes'],
+           // 'filterType' => GridView::FILTER_SWITCH,
+        ],
             //'contact_name',
             //'contact_title',
 //	    'dealer_web',
@@ -51,12 +64,17 @@ $this->params['breadcrumbs'][] = $this->title;
 //	    'latitude',
             //'dealer_email:email',
             //'outcode',
-            'comment:html',
+     //       'comment:html',
             'email_good:boolean',
+
             'vehicle_count',
             'fb_onboard:boolean',
             'cardealer:boolean',
-            //'updated_at',
+            'verified:boolean',
+            'updated_at',
+
+
+
             //'created_at',
 
         ],
