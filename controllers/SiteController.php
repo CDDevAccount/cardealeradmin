@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\UvwCustomerStock;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -62,7 +64,21 @@ class SiteController extends Controller
     public function actionIndex()
     {
         if (!Yii::$app->user->isGuest) {
-        return $this->render('index');
+            $query = UvwCustomerStock::find();
+            $dataProvider= new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'Dealer' => SORT_ASC,
+                 ]
+            ],
+            ]);
+            $qry = (new \yii\db\Query())->select('fn_Penetration()')->scalar();
+
+            return $this->render('index',['dataProvider' => $dataProvider,'penetration'=>$qry]);
         }else{
             return $this->render('noindex');
         }

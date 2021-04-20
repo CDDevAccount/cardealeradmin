@@ -44,7 +44,9 @@ $this->title = 'Car Dealer Media - Admin Area';
                 <h2>Must be signed in to view dashboard</h2>
 <?
         }else{ ?>
-            <h2>Dealer Dashboard</h2>
+            <h2>Dealer Dashboard {<?=$penetration?> Penetration}</h2>
+
+            <?= $this->render('@app/views/dealer/customerstats',['dataProvider' => $dataProvider]) ?>
         <? } ?>
         </div>
       </div>
