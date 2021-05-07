@@ -19,10 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-       <i class="fa fa-rocket" aria-hidden="true"></i>
-       <img src="rocket.jpeg" />
-
- <?= Html::a(Html::img('rocket.jpeg'), ['/gmb', 'id' => 1], ['class' => 'btn btn-danger']) ?>
+     <?= Html::a(Html::img('rocket.jpeg'), ['/gmb', 'id' => 1], ['class' => 'btn btn-danger']) ?>
     </p>
 
     <?= GridView::widget([
